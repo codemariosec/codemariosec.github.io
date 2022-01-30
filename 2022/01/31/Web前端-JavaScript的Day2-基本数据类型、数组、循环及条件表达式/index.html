@@ -1,0 +1,1243 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="前言这部分内容主要介绍了JavaScript中基本数据类型、数组的基础知识、循环的常规应用以及表达式。 变量1.什么是变量？变量是用来存储数据的，是存放具体数值的容器。 2.变量的命名规范变量名可以由字母、数字、下划线及美元符号组成，但是不能以数字开头。 3.变量的使用 先声明变量后初始化变量。 可以声明变量同时并初始化变量。  注意：变量名是区分大小写的。 操作符1.什么是变量？变量是用来存储数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式">
+<meta property="og:url" content="http://example.com/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言这部分内容主要介绍了JavaScript中基本数据类型、数组的基础知识、循环的常规应用以及表达式。 变量1.什么是变量？变量是用来存储数据的，是存放具体数值的容器。 2.变量的命名规范变量名可以由字母、数字、下划线及美元符号组成，但是不能以数字开头。 3.变量的使用 先声明变量后初始化变量。 可以声明变量同时并初始化变量。  注意：变量名是区分大小写的。 操作符1.什么是变量？变量是用来存储数">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-30T17:55:17.000Z">
+<meta property="article:modified_time" content="2022-01-30T17:56:16.199Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/a.ico">
+    
+    <title>Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式 · codeMario&#39;s base</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>codeMario's base.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">codeMario&#39;s base.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="JavaScript">JavaScript</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">4.8k</span>Reading time: <span class="post-count reading-time">20 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2022/01/31</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>这部分内容主要介绍了JavaScript中基本数据类型、数组的基础知识、循环的常规应用以及表达式。</p>
+<h1 id="变量"><a href="#变量" class="headerlink" title="变量"></a>变量</h1><h2 id="1-什么是变量？"><a href="#1-什么是变量？" class="headerlink" title="1.什么是变量？"></a>1.什么是变量？</h2><p>变量是用来存储数据的，是存放具体数值的容器。</p>
+<h2 id="2-变量的命名规范"><a href="#2-变量的命名规范" class="headerlink" title="2.变量的命名规范"></a>2.变量的命名规范</h2><p>变量名可以由字母、数字、下划线及美元符号组成，但是不能以数字开头。</p>
+<h2 id="3-变量的使用"><a href="#3-变量的使用" class="headerlink" title="3.变量的使用"></a>3.变量的使用</h2><ul>
+<li>先声明变量后初始化变量。</li>
+<li>可以声明变量同时并初始化变量。</li>
+</ul>
+<p><strong>注意：变量名是区分大小写的。</strong></p>
+<h1 id="操作符"><a href="#操作符" class="headerlink" title="操作符"></a>操作符</h1><h2 id="1-什么是变量？-1"><a href="#1-什么是变量？-1" class="headerlink" title="1.什么是变量？"></a>1.什么是变量？</h2><p>变量是用来存储数据的，是存放具体数值的容器。</p>
+<h2 id="2-基本的算术运算符"><a href="#2-基本的算术运算符" class="headerlink" title="2.基本的算术运算符"></a>2.基本的算术运算符</h2><p>变量是用来存储数据的，是存放具体数值的容器。</p>
+<table>
+<thead>
+<tr>
+<th><strong>操作符</strong></th>
+<th><strong>相关操作</strong></th>
+<th><strong>代码示例</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+</td>
+<td>加法操作</td>
+<td>1 + 2</td>
+</tr>
+<tr>
+<td>-</td>
+<td>减法操作</td>
+<td>2 - 1</td>
+</tr>
+<tr>
+<td>*</td>
+<td>乘法操作</td>
+<td>1 * 2</td>
+</tr>
+<tr>
+<td>&#x2F;</td>
+<td>除法操作</td>
+<td>2 &#x2F; 1</td>
+</tr>
+<tr>
+<td>%</td>
+<td>取模操作</td>
+<td>2 % 2</td>
+</tr>
+<tr>
+<td>++</td>
+<td>自增1运算</td>
+<td><strong>前置++操作先自增加1再返回加过后的值</strong>var a &#x3D; 1;var b &#x3D; ++a;b &#x3D; 2a &#x3D; 2<strong>后置++操作先返回原来的值再自增加1</strong>var a &#x3D; 1;var b &#x3D; a++;b &#x3D; 1 a &#x3D; 2</td>
+</tr>
+<tr>
+<td>–</td>
+<td>自减1运算</td>
+<td><strong>前置–操作先自减减1再返回加过后的值</strong>var a &#x3D; 2;var b &#x3D; –a;b &#x3D; 1a &#x3D; 1<strong>后置–操作先返回原来的值再自减减1</strong>var a &#x3D; 2;var b &#x3D; a–;b &#x3D; 2a &#x3D; 1</td>
+</tr>
+</tbody></table>
+<h2 id="3-复合操作运算符"><a href="#3-复合操作运算符" class="headerlink" title="3.复合操作运算符"></a>3.复合操作运算符</h2><table>
+<thead>
+<tr>
+<th>操作符</th>
+<th>代码示例</th>
+<th>代码变形</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>+&#x3D;</td>
+<td>var a &#x3D; 1;a +&#x3D; 1;console.log(a); a &#x3D; 2</td>
+<td>var a &#x3D; 1;a &#x3D; a + 1;console.log(a);a &#x3D; 2</td>
+</tr>
+<tr>
+<td>-&#x3D;</td>
+<td>var a &#x3D; 1;a -&#x3D; 1;console.log(a);a &#x3D; 0</td>
+<td>var a &#x3D; 1;a &#x3D; a - 1;console.log(a);a &#x3D; 0</td>
+</tr>
+<tr>
+<td>*&#x3D;</td>
+<td>var a &#x3D; 1;a *&#x3D; 2;console.log(a);a &#x3D; 2</td>
+<td>var a &#x3D; 1;a &#x3D; a * 2;console.log(a);a &#x3D; 2</td>
+</tr>
+<tr>
+<td>&#x2F;&#x3D;</td>
+<td>var a &#x3D; 2;a &#x2F;&#x3D; 2;console.log(a);a &#x3D; 1</td>
+<td>var a &#x3D; 2;a &#x3D; a &#x2F; 2;console.log(a);a &#x3D; 1</td>
+</tr>
+<tr>
+<td>%&#x3D;</td>
+<td>var a &#x3D; 2;a %&#x3D; 2;console.log(a);a &#x3D; 0</td>
+<td>var a &#x3D; 2;a &#x3D; a % 2;console.log(a);a &#x3D; 0</td>
+</tr>
+</tbody></table>
+<h1 id="操作符-1"><a href="#操作符-1" class="headerlink" title="操作符"></a>操作符</h1><p>JavaScript中包含以下几大基本数据类型：</p>
+<p>数字型——包括整数和浮点数，例如：1、1.1、3.14。<br>字符串型——包括由任意字符组成的序列，例如：“a”、“one 2 two”。<br>布尔型——只有两种形式，true和false。<br>undefined——没有值的变量，当我们去访问这种并不存在的变量时，会得到这个特殊值undefined。<br>null——表示没有值或空值。在JavaScript中，null的数据类型是对象。</p>
+<h2 id="1-typeof操作符"><a href="#1-typeof操作符" class="headerlink" title="1.typeof操作符"></a>1.typeof操作符</h2><p>使用typeof我们能够知道返回某个变量或值的类型是什么，该操作符的返回结果可能是：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(typeof null);           //Object</span><br><span class="line">2 console.log(typeof 10);             //number</span><br><span class="line">3 console.log(typeof &quot;a&quot;);            //string</span><br><span class="line">4 console.log(typeof &#x27;10&#x27;);           //string</span><br><span class="line">5 console.log(typeof true);           //boolean</span><br><span class="line">6 console.log(typeof function()&#123;&#125;);   //function</span><br><span class="line">7 console.log(typeof a);              //undefined</span><br><span class="line">8 console.log(typeof undefined);      //undefined</span><br></pre></td></tr></table></figure>
+
+<p>所以在JavaScript中使用typeof操作符返回的结果是：</p>
+<ul>
+<li>“number”;</li>
+<li>“string”;</li>
+<li>“boolean”;</li>
+<li>“undefined”;</li>
+<li>“object”;</li>
+<li>“function”</li>
+</ul>
+<p><strong>注意：</strong></p>
+<p>当八进制和十六进制的数字使用typeof操作符时返回的结果是number类型。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(typeof 0377);   //八进制返回&quot;number&quot;</span><br><span class="line">2 console.log(typeof 0xff);   //十六进制返回&quot;number&quot;</span><br></pre></td></tr></table></figure>
+
+<p>当使用指数去表示的时候返回的是number类型</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 //2e1和2e+1是指数的两种表示方法</span><br><span class="line">2 console.log(typeof 2e1);    //number</span><br><span class="line">3 console.log(typeof 2e+1);    //number</span><br></pre></td></tr></table></figure>
+
+<p>使用typeof操作符返回Infinity和-Infinity的结果也是number</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(typeof Infinity);    //number</span><br><span class="line">2 console.log(typeof -Infinity);    //number</span><br></pre></td></tr></table></figure>
+
+<p>使用typeof操作符返回NaN的结果也是number</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(typeof NaN);</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-数字型"><a href="#2-数字型" class="headerlink" title="2.数字型"></a>2.数字型</h2><h3 id="1-Infinity"><a href="#1-Infinity" class="headerlink" title="1.Infinity"></a>1.Infinity</h3><p>在JavaScript中，超出处理范围的数值用Infinity这个特殊值来表示。例如当我们向控制台输出1e308时，返回结果正常，而向控制台再输出1e309的时候就超出范围了，所以会返回Infinity，其中如果超出最大值就是返回Infinity，如果超出最小值就返回-infinity。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(1e308);        //1e+308</span><br><span class="line">2 console.log(1e309);        //Infinity</span><br><span class="line">3 console.log(-1e309);    //-Infinity</span><br></pre></td></tr></table></figure>
+
+<p><strong>Infinity和-Infinity相加得到的不是0而是NaN，Infinity-Infinity得到的也是NaN而并非0,实际上二者都一样。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(-Infinity + Infinity);    //NaN</span><br><span class="line">2 console.log(Infinity - Infinity);    //NaN</span><br></pre></td></tr></table></figure>
+
+<p><strong>Infinity和数字执行除了取模以外的运算得到的结果都是Infinity，取模运算得到的是NaN。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(Infinity + 10);        //Infinity</span><br><span class="line">2 console.log(Infinity - 10);        //Infinity</span><br><span class="line">3 console.log(Infinity * 10);        //Infinity</span><br><span class="line">4 console.log(Infinity / 10);        //Infinity</span><br><span class="line">5 console.log(Infinity % 10);        //NaN</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-NaN"><a href="#2-NaN" class="headerlink" title="2.NaN"></a>2.NaN</h3><p>虽然NaN代表的是<strong>不是数字</strong>，但是正如我们在上面typeof中使用typeof操作符的时候一样，返回的值的类型也是数字类型，所以NaN是一种特殊的数字。</p>
+<p><strong>注意：</strong></p>
+<ul>
+<li><strong>如果我们计算1 + “a”得到的结果是1a这个拼接后的字符串，但是如果我们使用的是其它的几个算术运算符的话返回的结果是NaN，因为这是错误的运算方式，返回的结果不会是一个数字。</strong></li>
+<li><strong>如果我们在算术运算中将NaN算进去的话，整个运算得到的结果也是NaN。</strong></li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(1 + &quot;a&quot;);            //1a</span><br><span class="line">2 console.log(1 - &quot;a&quot;);            //NaN</span><br><span class="line">3 console.log(1 * &quot;a&quot;);            //NaN</span><br><span class="line">4 console.log(1 / &quot;a&quot;);            //NaN</span><br><span class="line">5 console.log(1 % &quot;a&quot;);            //NaN</span><br><span class="line">6 console.log(1 + 2 + NaN + 3);    //NaN</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-字符串型"><a href="#3-字符串型" class="headerlink" title="3.字符串型"></a>3.字符串型</h3><p>字符串通常表示的是某段表示文本的字符序列。和某些语言不同的是，JavaScript语言中一对单引号或双引号之间的任何值都是一个字符串，有些编程语言单引号只能是表示字符，双引号表示字符串。所以在JavaScript中，’1’和”1”表示的都是字符串。字符串使用typeof操作符会返回string这个结果。</p>
+<h4 id="1-字符串的表示"><a href="#1-字符串的表示" class="headerlink" title="1.字符串的表示"></a>1.字符串的表示</h4><ul>
+<li>在JavaScript中字符串可以用单引号表示也可以用双引号表示。</li>
+<li>字符串可以是引号中的零个或多个字符。</li>
+<li>字符串可以是带单引号或双引号的任何值。</li>
+<li>字符串之间可以使用加号运算符进行拼接，拼接后得到的新的字符串依然是字符串类型。</li>
+</ul>
+<h4 id="2-字符串类型和其它类型之间的相互转换"><a href="#2-字符串类型和其它类型之间的相互转换" class="headerlink" title="2.字符串类型和其它类型之间的相互转换"></a>2.字符串类型和其它类型之间的相互转换</h4><p>布尔型转字符串型<br><strong>通过a布尔类型与字符串使用加号运算符拼接将a由布尔类型转换为字符串类型。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 var a = true;</span><br><span class="line">2 var b = &quot;&quot;;</span><br><span class="line">3 var c = a + b;</span><br><span class="line">4 console.log(c);            //true</span><br><span class="line">5 console.log(typeof c);    //string</span><br></pre></td></tr></table></figure>
+
+<p>字符串型转数字型<br><strong>通过字符串类型和数字类型使用乘号运算符拼接得到的是数字类型。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 var a = &quot;&quot;;</span><br><span class="line">2 var b = 1;</span><br><span class="line">3 var c = a * b;</span><br><span class="line">4 console.log(c);            //1</span><br><span class="line">5 console.log(typeof c);    //number</span><br></pre></td></tr></table></figure>
+
+<p><strong>通过Number()方法返回数字，将字符串类型值转换为数字类型值。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 var a = Number(&quot;2021&quot;) + 1;</span><br><span class="line">2 console.log(a);            //2022</span><br><span class="line">3 console.log(typeof a);    //number</span><br></pre></td></tr></table></figure>
+
+<p><strong>通过parseInt()方法解析一段字符串并返回数值。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 var a = parseInt(&quot;5a7b6&quot;);</span><br><span class="line">2 console.log(a);            //5</span><br><span class="line">3 console.log(typeof a);    //number</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：parseInt()方法允许空格且只返回首个数字，上面的示例开头数字是5，所以最后返回的数值结果就是5。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 var a = parseInt(&quot;1024&quot;);</span><br><span class="line">2 console.log(a);            //1024</span><br><span class="line">3 console.log(typeof a);    //number</span><br></pre></td></tr></table></figure>
+
+<p><strong>所以说如果parseInt()方法中解析的字符串首字母不是数字的话返回的值就是NaN。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 var a = parseInt(&quot;3.14&quot;);</span><br><span class="line">2 console.log(a);            //3</span><br><span class="line">3 console.log(typeof a);    //number</span><br></pre></td></tr></table></figure>
+
+<p><strong>通过parseFloat()方法解析一段字符串并返回数值。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 var a = parseFloat(&quot;3.14a&quot;);</span><br><span class="line">2 console.log(a);            //3.14</span><br><span class="line">3 console.log(typeof a);    //number</span><br></pre></td></tr></table></figure>
+
+<p><strong>注意：parseFloat()方法允许空格且只返回首个数字，上面的示例开头数字是3.14，所以最后返回的数值结果就是3.14。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 var a = parseFloat(&quot;3.14&quot;);</span><br><span class="line">2 console.log(a);            //3.14</span><br><span class="line">3 console.log(typeof a);    //number</span><br></pre></td></tr></table></figure>
+
+<p><strong>所以说如果parseFloat()方法中解析的字符串首字母不是数字的话返回的值就是NaN。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 var a = parseFloat(&quot;ab12c&quot;);</span><br><span class="line">2 console.log(a);            //NaN</span><br><span class="line">3 console.log(typeof a);    //number</span><br></pre></td></tr></table></figure>
+
+<p>数字型转字符串型<br><strong>通过字符串类型和数字类型进行拼接将数字类型的值转换为字符串类型值。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 var a = &#x27;&#x27;;</span><br><span class="line">2 var b = 1;</span><br><span class="line">3 var c = a + b;</span><br><span class="line">4 console.log(c);            //1</span><br><span class="line">5 console.log(typeof c);    //string</span><br></pre></td></tr></table></figure>
+
+<h4 id="3-字符串拼接"><a href="#3-字符串拼接" class="headerlink" title="3.字符串拼接"></a>3.字符串拼接</h4><p><strong>字符串与字符串拼接得到的结果还是字符串类型。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 var a = &#x27;java&#x27;;</span><br><span class="line">2 var b = &quot;script&quot;;</span><br><span class="line">3 var c = a + b;</span><br><span class="line">4 console.log(c);                //javascript</span><br><span class="line">5 console.log(typeof c);        //string</span><br></pre></td></tr></table></figure>
+
+<h4 id="4-常用特殊字符串"><a href="#4-常用特殊字符串" class="headerlink" title="4.常用特殊字符串"></a>4.常用特殊字符串</h4><table>
+<thead>
+<tr>
+<th align="center">字符串</th>
+<th align="center">含义</th>
+<th align="center">示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">\ &#39; &#39;‘</td>
+<td align="center">\是转义字符，当我们 想要在字符串中去使用 引号的时候需要用到 这个字符，使用这个字 符对引号进行转义最终 输出的结果才是正常的结 果，否则JavaScript 可能会将相同的引号匹 配错误从而造成值的截断。 当然，我们在字符串中 使用\本身的时候也需要使用另一个\将\本 身进行转义，否则JavaScript 会认为\本体是一个转义字符。</td>
+<td align="center">var a &#x3D; ‘I don’t konw’;以上的做法是错误的，因为JavaScript会将”I don’t”视为字符串，而其余部分则是无效代码，从而截断了后面的部分，我们应该是这样去做： var a &#x3D; ‘I don&#39;t know’;var a &#x3D; “I don’t know”;var a &#x3D; ‘“Hello”,World’;var a &#x3D; “&quot;Hello&quot;,World”;</td>
+</tr>
+<tr>
+<td align="center">\n</td>
+<td align="center">换行符</td>
+<td align="center">var a &#x3D; ‘\n1\n2\n3\n’;console.log(a);123</td>
+</tr>
+<tr>
+<td align="center">\r</td>
+<td align="center">回车符</td>
+<td align="center">var a &#x3D; ‘1\r\n2’;console.log(a);”12”</td>
+</tr>
+<tr>
+<td align="center">\t</td>
+<td align="center">制表符</td>
+<td align="center">var a &#x3D; “1\t2”;console.log(a);”12”</td>
+</tr>
+<tr>
+<td align="center">\u</td>
+<td align="center">\u后面的字符会被视为Unicode码</td>
+<td align="center">下面是作者的名字在保加利亚语中用西里尔字母的拼写：”\u0421\u0442\u043E\u044F\u043D”; “”Стoян””</td>
+</tr>
+</tbody></table>
+<h3 id="4-布尔型"><a href="#4-布尔型" class="headerlink" title="4.布尔型"></a>4.布尔型</h3><p>布尔类型只有true和false两种值，一般作为判断语句去使用。</p>
+<p> 布尔类型在使用typeof操作符的时候返回的值类型是boolean类型。</p>
+<p> 在JavaScript中有三种布尔运算的运算符，分别是：</p>
+<ul>
+<li>!——逻辑非（取反）；</li>
+<li>&amp;&amp;——逻辑与；</li>
+<li>||——逻辑或；</li>
+</ul>
+<p>其中，逻辑非代表事物不是真的状态，逻辑与是代表当前事物和操作中所有的一切都是真最终结果才为真，只要有一个不满足就为假，即使是另外的条件满足。逻辑或则是多个条件中其中一个条件满足就为真，只有都为假的时候才能为假。</p>
+<p>以下表列出相应情况</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作</th>
+<th align="center">结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">true &amp;&amp; true</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">true &amp;&amp; false</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">false &amp;&amp; true</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">false &amp;&amp; false</td>
+<td align="center">false</td>
+</tr>
+<tr>
+<td align="center">true || true</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">true || false</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">false || true</td>
+<td align="center">true</td>
+</tr>
+<tr>
+<td align="center">false || false</td>
+<td align="center">false</td>
+</tr>
+</tbody></table>
+<p><strong>注意：在或、与、非三个布尔运算符之中优先级为!（非）&gt;&amp;&amp;（或）&gt;||（与）。</strong><br>当然，在JavaScript中，还有另一组以布尔值为返回值类型的操作符，我们称之为比较运算符。</p>
+<table>
+<thead>
+<tr>
+<th align="center">操作符</th>
+<th align="center">操作说明</th>
+<th align="center">代码示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">&#x3D;&#x3D;</td>
+<td align="center">相等运算符，即当两个 操作数相等时返回true， 比较的时候运算符两边 的数值会被自动转换为相同的类型。</td>
+<td align="center">console.log(1 &#x3D;&#x3D; 1);trueconsole.log(1 &#x3D;&#x3D; 2);falseconsole.log(1 &#x3D;&#x3D; ‘1’);true</td>
+</tr>
+<tr>
+<td align="center">&#x3D;&#x3D;&#x3D;</td>
+<td align="center">严格相等运算符，当两边 的操作数的值和类型都 相同的时候才返回true， 可以说是全等于这类型的。这是一种比较全面可靠的 比较，因为这样的比较 不会出现可能发生的某个操作数 类型转换再比较。</td>
+<td align="center">console.log(1 &#x3D;&#x3D;&#x3D; 1);trueconsole.log(1 &#x3D;&#x3D;&#x3D; ‘1’);false</td>
+</tr>
+<tr>
+<td align="center">!&#x3D;</td>
+<td align="center">不相等运算符，当两边 的操作数不相等的时候 返回true，这种比较是会进行类型转换为 相同类型进行比较。</td>
+<td align="center">console.log(1 !&#x3D; 1);falseconsole.log(1 !&#x3D; ‘1’);falseconsole.log(1 !&#x3D; ‘2’);true</td>
+</tr>
+<tr>
+<td align="center">!&#x3D;&#x3D;</td>
+<td align="center">严格不相等运算符，当两边 的操作数的值和类型都不相同 的时候才返回true， 可以说是全不等于这类型的。这是一种比较全面可靠的比较， 因为这样的比较不会出现可能发生的某个操作数 类型转换再比较。</td>
+<td align="center">console.log(1 !&#x3D;&#x3D; 1);falseconsole.log(1 !&#x3D;&#x3D; ‘1’);true</td>
+</tr>
+<tr>
+<td align="center">&gt;</td>
+<td align="center">当符号左边的数大于右边的数的时候返回true。</td>
+<td align="center">1 &gt; 1;false2 &gt; 1;true</td>
+</tr>
+<tr>
+<td align="center">&gt;&#x3D;</td>
+<td align="center">当符号左边的数大于等于右边的数的时候返回true。</td>
+<td align="center">1 &gt;&#x3D; 1;true1&gt;&#x3D; 2;false</td>
+</tr>
+<tr>
+<td align="center">&lt;</td>
+<td align="center">当符号左边的数小于右边的数的时候返回true。</td>
+<td align="center">1 &lt; 1;false1 &lt; 2;true</td>
+</tr>
+<tr>
+<td align="center">&lt;&#x3D;</td>
+<td align="center">当符号左边的数小于等于右边的数的时候返回true。</td>
+<td align="center">1 &lt;&#x3D; 1;true2 &lt;&#x3D; 1;false</td>
+</tr>
+</tbody></table>
+<p><strong>注意：NaN不等于任何东西，哪怕是自己，例如NaN &#x3D;&#x3D; NaN;返回值也为false。</strong></p>
+<h1 id="数组"><a href="#数组" class="headerlink" title="数组"></a>数组</h1><h2 id="1-什么是数组？"><a href="#1-什么是数组？" class="headerlink" title="1.什么是数组？"></a>1.什么是数组？</h2><p>数组是一个用于存储数据的列表，这个列表可以存放任意数量的元素值。<br><strong>示例：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 var a = [1,2,3];</span><br><span class="line">2 console.log(a);        //[1,2,3]</span><br></pre></td></tr></table></figure>
+
+<p><strong>记住，元素在数组中的索引位置下标是从0开始的，所以数组元素的首个索引值是0，第二个元素索引值是1，以此类推。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 var a = [1,2,3];</span><br><span class="line">2 console.log(a[0]);        //1</span><br><span class="line">3 console.log(a[1]);        //2</span><br><span class="line">4 console.log(a[2]);        //3</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-数组的特点"><a href="#2-数组的特点" class="headerlink" title="2.数组的特点"></a>2.数组的特点</h2><ul>
+<li>数组是一种数据存储形式。</li>
+<li>数组是可以被索引的。</li>
+<li>数组中的元素索引值是从0开始，按照每个元素的位置去依次递增。</li>
+<li>数组能存储任何类型的数据，包括另一个数组。</li>
+<li>我们可以对数组进行增删改查。</li>
+<li>我们可以通过数组访问的方式去获取字符串中特定位置上的字符。</li>
+</ul>
+<h2 id="3-关于数组元素的增加和更新"><a href="#3-关于数组元素的增加和更新" class="headerlink" title="3.关于数组元素的增加和更新"></a>3.关于数组元素的增加和更新</h2><p>我们可以通过索引去直接增加或者更新数组中的元素，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 var a = [1,2,3];</span><br><span class="line">2 a[1] = &quot;two&quot;;        //修改元素索引值为1的数</span><br><span class="line">3 a[3] = &quot;four&quot;;        //增加元素索引值为3的地方</span><br><span class="line">4 a[5] = &quot;six&quot;;        //增加元素索引值为6的地方，索引值为5的地方在控制台上输出的时候是空值</span><br><span class="line">5 console.log(a);        //[1, &quot;two&quot;, 3, &quot;four&quot;, empty, &quot;six&quot;]</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-关于数组元素的删除"><a href="#4-关于数组元素的删除" class="headerlink" title="4.关于数组元素的删除"></a>4.关于数组元素的删除</h2><p>删除数组中特定的元素我们需要使用delete操作符去实现操作。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">1 var a = [1,2,3];</span><br><span class="line">2 delete a[1];</span><br><span class="line">3 console.log(a);        // [1, empty, 3]</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-利用数组访问字符串"><a href="#5-利用数组访问字符串" class="headerlink" title="5.利用数组访问字符串"></a>5.利用数组访问字符串</h2><p>我们可以通过数组访问的方式去获取字符串中特定位置上的字符。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 var a = &#x27;abc&#x27;;</span><br><span class="line">2 console.log(a[0]);        //a</span><br><span class="line">3 console.log(a[1]);        //b</span><br><span class="line">4 console.log(a[2]);        //c</span><br></pre></td></tr></table></figure>
+
+<h1 id="条件与循环"><a href="#条件与循环" class="headerlink" title="条件与循环"></a>条件与循环</h1><p>条件与循环是实际开发过程中重要的一部分，通过使用条件我们可以控制一段代码的执行走向，通过循环我们可以重复去执行某段代码。</p>
+<h2 id="1-if条件表达式"><a href="#1-if条件表达式" class="headerlink" title="1.if条件表达式"></a>1.if条件表达式</h2><p>if条件表达式主要由if语句、语句条件、执行的代码块以及代码块内部的执行语句组成。其中语句条件是指逻辑类或者是比较类并返回布尔值类型的操作语句组成。</p>
+<h2 id="2-else语句"><a href="#2-else语句" class="headerlink" title="2.else语句"></a>2.else语句</h2><p>else语句是if语句的可选项，运用于if语句表达式条件返回值为false的时候去执行该部分所包含的语句。</p>
+<p><strong>举个栗子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 var a = 2;</span><br><span class="line">2 if(a &gt; 2) &#123;</span><br><span class="line">3     console.log(&quot;a是一个大于2的数字&quot;);</span><br><span class="line">4 &#125; else &#123;</span><br><span class="line">5     console.log(&quot;a不是大于2的数字&quot;);</span><br><span class="line">6 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>此外我们还有else if语句，也是if语句的可选项，是分支判断语句，例如：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 var a = 2;</span><br><span class="line">2 if(a == 1) &#123;</span><br><span class="line">3     console.log(&quot;a = 1&quot;);</span><br><span class="line">4 &#125; else if(a == 2) &#123;</span><br><span class="line">5     console.log(&quot;a = 2&quot;);</span><br><span class="line">6 &#125; else &#123;</span><br><span class="line">7     console.log(&quot;a不满足上述条件&quot;);</span><br><span class="line">8 &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-switch语句"><a href="#3-switch语句" class="headerlink" title="3.switch语句"></a>3.switch语句</h2><p>当if语句中出现过多的else if语句的时候，最好使用switch语句进行条件的判断。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"> 1 var a = 1;</span><br><span class="line"> 2 var result = &#x27;&#x27;;</span><br><span class="line"> 3 switch(a) &#123;</span><br><span class="line"> 4     case 1:</span><br><span class="line"> 5         result = &#x27;Number 1&#x27;;</span><br><span class="line"> 6         break;</span><br><span class="line"> 7     case 2:</span><br><span class="line"> 8         result = &#x27;Number 2&#x27;;</span><br><span class="line"> 9         break;</span><br><span class="line">10     default:</span><br><span class="line">11         result = &#x27;Number X&#x27;;</span><br><span class="line">12         break;</span><br><span class="line">13 &#125;</span><br><span class="line">14 console.log(result);</span><br><span class="line">15 //输出结果：Number 1</span><br></pre></td></tr></table></figure>
+
+<h3 id="switch语句的组成部分及其作用"><a href="#switch语句的组成部分及其作用" class="headerlink" title="switch语句的组成部分及其作用"></a>switch语句的组成部分及其作用</h3><ul>
+<li>switch子句。</li>
+<li>括号表达式。表达式通常是一个变量，有时候也可以是其它能够提供返回值的东西。</li>
+<li>包含在switch语句大括号中的case序列块。</li>
+<li>每个case语句下的表达式，如果表达式结果与switch语句表达式对比结果为true则case语句冒号之后的代码会被执行。</li>
+<li>break语句是可选的，当代码执行到break语句时，就跳出当前循环结束整个过程的执行。</li>
+<li>default关键字是默认条件代码块，当case条件的语句都不为true的时候，就执行default条件里的语句。</li>
+</ul>
+<h2 id="4-循环"><a href="#4-循环" class="headerlink" title="4.循环"></a>4.循环</h2><p>通过循环语句我们可以使某段代码可以反复执行，便于操作。</p>
+<p>在JavaScript中，循环分为四种类型：</p>
+<ul>
+<li>while循环；</li>
+<li>do-while循环；</li>
+<li>for循环；</li>
+<li>for-in循环。</li>
+</ul>
+<h3 id="1-while循环"><a href="#1-while循环" class="headerlink" title="1.while循环"></a>1.while循环</h3><p>while循环语句分为小括号中的条件和大括号中的代码块,当小括号中的条件为true的时候会执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 var a = 0;</span><br><span class="line">2 while(a &lt; 10) &#123;</span><br><span class="line">3     a++;</span><br><span class="line">4 &#125;</span><br><span class="line">5 console.log(a);</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-do-while循环"><a href="#2-do-while循环" class="headerlink" title="2.do-while循环"></a>2.do-while循环</h3><p>do-while循环和while循环没有多大的区别，只不过是do-while循环里的代码块会至少执行一次，先执行，后判断。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 var a = 0;</span><br><span class="line">2 do &#123;</span><br><span class="line">3     a++;</span><br><span class="line">4 &#125; while(a &lt; 10);</span><br><span class="line">5 console.log(a);</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-for循环"><a href="#3-for循环" class="headerlink" title="3.for循环"></a>3.for循环</h3><p>for循环主要包括以下内容：</p>
+<ul>
+<li>初始化部分定义一个循环变量，例如var i &#x3D; 0;</li>
+<li>条件部分将i与循环边界值进行对比。例如i &lt; 10;</li>
+<li>自增部分将循环变量i自增1，例如i++。</li>
+</ul>
+<p><strong>举个栗子：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 var a = &#x27;&#x27;;</span><br><span class="line">2 for(var i = 0;i &lt; 10;i++) &#123;</span><br><span class="line">3     a = &#x27;Hello World&#x27;;</span><br><span class="line">4 &#125;</span><br><span class="line">5 console.log(&quot;输出&quot; + a);</span><br></pre></td></tr></table></figure>
+
+<p>可以这样去表示：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 for(var i = 0,a = &#x27;&#x27;;i &lt; 10;i++) &#123;</span><br><span class="line">2     a = &#x27;Hello World&#x27;;</span><br><span class="line">3 &#125;</span><br><span class="line">4 console.log(&quot;输出&quot; + a);</span><br></pre></td></tr></table></figure>
+
+<p>不过这样写的话可读性会变得很差，所以并不建议这样写。<br><strong>for循环彼此之间可以进行嵌套。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 for(var i = 0;i &lt; 10;i++) &#123;</span><br><span class="line">2     for(var j = 0;j &lt; 10;j++) &#123;</span><br><span class="line">3         </span><br><span class="line">4     &#125;</span><br><span class="line">5 &#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-for-in循环"><a href="#4-for-in循环" class="headerlink" title="4.for-in循环"></a>4.for-in循环</h3><p>for-in循环往往被用来遍历某个数组中的元素。</p>
+<p><strong>示例：</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 var a = [&#x27;a&#x27;,&#x27;b&#x27;,&#x27;c&#x27;,&#x27;d&#x27;,&#x27;e&#x27;];</span><br><span class="line">2 var result = &#x27;\n&#x27;;</span><br><span class="line">3 for(var i in a) &#123;</span><br><span class="line">4     result = &#x27;index:&#x27; + i +&#x27;,value:&#x27; + a[i] + &#x27;\n&#x27;;</span><br><span class="line">5     console.log(result);</span><br><span class="line">6 &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这部分内容主要介绍了JavaScript中的基本数据类型、数组、循环以及条件表达式的常规应用，尤其在数组方面并没有介绍全面，在后面的学习中再学到更多的应用时再做补充。</p>
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://example.com">John Doe</a>
+            <p>Link：<a href="http://example.com/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F/">http://example.com/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F/</a>
+            <p>Publish date：<a href="http://example.com/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F/">January 31st 2022, 1:55:17 am</a>
+            <p>Update date：<a href="http://example.com/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F/">January 31st 2022, 1:56:16 am</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day1-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9D%E6%AD%A5%E7%90%86%E8%A7%A3/" title="Web前端_JavaScript的Day1_面向对象的初步理解">
+                    <div class="prevTitle">Web前端_JavaScript的Day1_面向对象的初步理解</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+        new Valine({
+            el: '#comment',
+            notify:false,
+            verify:false,
+            appId: "WpN2taXdjtJOc4Cu7LRoQ1tO-gzGzoHsz",
+            appKey: "rWMuao9pGx49QOzohhiRN36e",
+            placeholder: "",
+            path:window.location.pathname,
+            avatar:'mm'
+        });
+    </script>
+
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:J385251693@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/codemariosec" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://www.zhihu.com/people/ignorant-19-73" class="iconfont-archer zhihu" target="_blank" title=zhihu></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8F%98%E9%87%8F"><span class="toc-number">2.</span> <span class="toc-text">变量</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%98%E9%87%8F%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">1.什么是变量？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%8F%98%E9%87%8F%E7%9A%84%E5%91%BD%E5%90%8D%E8%A7%84%E8%8C%83"><span class="toc-number">2.2.</span> <span class="toc-text">2.变量的命名规范</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%BF%E7%94%A8"><span class="toc-number">2.3.</span> <span class="toc-text">3.变量的使用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">3.</span> <span class="toc-text">操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%8F%98%E9%87%8F%EF%BC%9F-1"><span class="toc-number">3.1.</span> <span class="toc-text">1.什么是变量？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%9F%BA%E6%9C%AC%E7%9A%84%E7%AE%97%E6%9C%AF%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">3.2.</span> <span class="toc-text">2.基本的算术运算符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%A4%8D%E5%90%88%E6%93%8D%E4%BD%9C%E8%BF%90%E7%AE%97%E7%AC%A6"><span class="toc-number">3.3.</span> <span class="toc-text">3.复合操作运算符</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%93%8D%E4%BD%9C%E7%AC%A6-1"><span class="toc-number">4.</span> <span class="toc-text">操作符</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-typeof%E6%93%8D%E4%BD%9C%E7%AC%A6"><span class="toc-number">4.1.</span> <span class="toc-text">1.typeof操作符</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%95%B0%E5%AD%97%E5%9E%8B"><span class="toc-number">4.2.</span> <span class="toc-text">2.数字型</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-Infinity"><span class="toc-number">4.2.1.</span> <span class="toc-text">1.Infinity</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-NaN"><span class="toc-number">4.2.2.</span> <span class="toc-text">2.NaN</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E5%9E%8B"><span class="toc-number">4.2.3.</span> <span class="toc-text">3.字符串型</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#1-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%9A%84%E8%A1%A8%E7%A4%BA"><span class="toc-number">4.2.3.1.</span> <span class="toc-text">1.字符串的表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#2-%E5%AD%97%E7%AC%A6%E4%B8%B2%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%85%B6%E5%AE%83%E7%B1%BB%E5%9E%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E7%9B%B8%E4%BA%92%E8%BD%AC%E6%8D%A2"><span class="toc-number">4.2.3.2.</span> <span class="toc-text">2.字符串类型和其它类型之间的相互转换</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#3-%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%8B%BC%E6%8E%A5"><span class="toc-number">4.2.3.3.</span> <span class="toc-text">3.字符串拼接</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#4-%E5%B8%B8%E7%94%A8%E7%89%B9%E6%AE%8A%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">4.2.3.4.</span> <span class="toc-text">4.常用特殊字符串</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-%E5%B8%83%E5%B0%94%E5%9E%8B"><span class="toc-number">4.2.4.</span> <span class="toc-text">4.布尔型</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%95%B0%E7%BB%84"><span class="toc-number">5.</span> <span class="toc-text">数组</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E6%95%B0%E7%BB%84%EF%BC%9F"><span class="toc-number">5.1.</span> <span class="toc-text">1.什么是数组？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E6%95%B0%E7%BB%84%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">5.2.</span> <span class="toc-text">2.数组的特点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E5%A2%9E%E5%8A%A0%E5%92%8C%E6%9B%B4%E6%96%B0"><span class="toc-number">5.3.</span> <span class="toc-text">3.关于数组元素的增加和更新</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%B3%E4%BA%8E%E6%95%B0%E7%BB%84%E5%85%83%E7%B4%A0%E7%9A%84%E5%88%A0%E9%99%A4"><span class="toc-number">5.4.</span> <span class="toc-text">4.关于数组元素的删除</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#5-%E5%88%A9%E7%94%A8%E6%95%B0%E7%BB%84%E8%AE%BF%E9%97%AE%E5%AD%97%E7%AC%A6%E4%B8%B2"><span class="toc-number">5.5.</span> <span class="toc-text">5.利用数组访问字符串</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%9D%A1%E4%BB%B6%E4%B8%8E%E5%BE%AA%E7%8E%AF"><span class="toc-number">6.</span> <span class="toc-text">条件与循环</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-if%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F"><span class="toc-number">6.1.</span> <span class="toc-text">1.if条件表达式</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-else%E8%AF%AD%E5%8F%A5"><span class="toc-number">6.2.</span> <span class="toc-text">2.else语句</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-switch%E8%AF%AD%E5%8F%A5"><span class="toc-number">6.3.</span> <span class="toc-text">3.switch语句</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#switch%E8%AF%AD%E5%8F%A5%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86%E5%8F%8A%E5%85%B6%E4%BD%9C%E7%94%A8"><span class="toc-number">6.3.1.</span> <span class="toc-text">switch语句的组成部分及其作用</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%BE%AA%E7%8E%AF"><span class="toc-number">6.4.</span> <span class="toc-text">4.循环</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-while%E5%BE%AA%E7%8E%AF"><span class="toc-number">6.4.1.</span> <span class="toc-text">1.while循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-do-while%E5%BE%AA%E7%8E%AF"><span class="toc-number">6.4.2.</span> <span class="toc-text">2.do-while循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-for%E5%BE%AA%E7%8E%AF"><span class="toc-number">6.4.3.</span> <span class="toc-text">3.for循环</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#4-for-in%E5%BE%AA%E7%8E%AF"><span class="toc-number">6.4.4.</span> <span class="toc-text">4.for-in循环</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E6%80%BB%E7%BB%93"><span class="toc-number">7.</span> <span class="toc-text">总结</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 4
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/31</span>
+            <a class="archive-post-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day1-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9D%E6%AD%A5%E7%90%86%E8%A7%A3/">Web前端_JavaScript的Day1_面向对象的初步理解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/29</span>
+            <a class="archive-post-title" href="/2022/01/29/hello-world/">Hello World</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> Invalid date </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">Invalid date</span>
+            <a class="archive-post-title" href="/2022/01/30/%E4%BD%A0%E5%A5%BD%EF%BC%8C%E4%B8%96%E7%95%8C/">你好，世界</a>
+        </li>
+    
+        
+            
+            
+                
+                </ul>
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/31</span>
+            <a class="archive-post-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JavaScript">
+                <span class="iconfont-archer">&#xe606;</span>
+                JavaScript
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="前端">
+            <span class="iconfont-archer">&#xe60a;</span>
+            前端
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://example.com",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+            <script src='https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js'></script>
+            <script>
+                if (window.mermaid) {
+                    mermaid.initialize({theme: 'dark'});
+                }
+            </script>
+        
+    </body>
+</html>
