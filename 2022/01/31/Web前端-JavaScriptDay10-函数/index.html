@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="en">
+    <!-- title -->
+
+
+    
+
+<!-- keywords -->
+
+
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="author" content="John Doe">
+    <meta name="renderer" content="webkit">
+    <meta name="copyright" content="John Doe">
+    
+        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
+    
+    <meta name="description" content="">
+    <meta name="description" content="前言  无论是什么程序设计语言，函数都是重要的一部分内容，在实际开发过程中有很多语法的表达和功能的实现都来源于函数。不过与其它语言不同的是，JavaScript是通过函数来实现面向对象的特性并非通过专门的面向对象语法去实现的，因为JavaScript没有属于自己的专门的面向对象语法，所以函数在JavaScript中更是重中之重。 一、函数的介绍1.什么是函数？  函数是执行特定任务的代码块，之后通">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Web前端_JavaScriptDay10_函数">
+<meta property="og:url" content="http://example.com/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScriptDay10-%E5%87%BD%E6%95%B0/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="前言  无论是什么程序设计语言，函数都是重要的一部分内容，在实际开发过程中有很多语法的表达和功能的实现都来源于函数。不过与其它语言不同的是，JavaScript是通过函数来实现面向对象的特性并非通过专门的面向对象语法去实现的，因为JavaScript没有属于自己的专门的面向对象语法，所以函数在JavaScript中更是重中之重。 一、函数的介绍1.什么是函数？  函数是执行特定任务的代码块，之后通">
+<meta property="og:locale" content="en_US">
+<meta property="article:published_time" content="2022-01-30T18:09:09.000Z">
+<meta property="article:modified_time" content="2022-01-30T18:09:38.687Z">
+<meta property="article:author" content="John Doe">
+<meta property="article:tag" content="JavaScript">
+<meta name="twitter:card" content="summary">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <link rel="icon" href="/assets/a.ico">
+    
+    <title>Web前端_JavaScriptDay10_函数 · codeMario&#39;s base</title>
+    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
+/* This file is meant as a standalone workflow for
+- testing support for link[rel=preload]
+- enabling async CSS loading in browsers that do not support rel=preload
+- applying rel preload css once loaded, whether supported or not.
+*/ -->
+<script>
+    (function (w) {
+        'use strict'
+        // rel=preload support test
+        if (!w.loadCSS) {
+            w.loadCSS = function () {}
+        }
+        // define on the loadCSS obj
+        var rp = (loadCSS.relpreload = {})
+        // rel=preload feature support test
+        // runs once and returns a function for compat purposes
+        rp.support = (function () {
+            var ret
+            try {
+                ret = w.document.createElement('link').relList.supports('preload')
+            } catch (e) {
+                ret = false
+            }
+            return function () {
+                return ret
+            }
+        })()
+
+        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
+        // then change that media back to its intended value on load
+        rp.bindMediaToggle = function (link) {
+            // remember existing media attr for ultimate state, or default to 'all'
+            var finalMedia = link.media || 'all'
+
+            function enableStylesheet() {
+                link.media = finalMedia
+            }
+
+            // bind load handlers to enable media
+            if (link.addEventListener) {
+                link.addEventListener('load', enableStylesheet)
+            } else if (link.attachEvent) {
+                link.attachEvent('onload', enableStylesheet)
+            }
+
+            // Set rel and non-applicable media type to start an async request
+            // note: timeout allows this to happen async to let rendering continue in IE
+            setTimeout(function () {
+                link.rel = 'stylesheet'
+                link.media = 'only x'
+            })
+            // also enable media after 3 seconds,
+            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
+            setTimeout(enableStylesheet, 3000)
+        }
+
+        // loop through link elements in DOM
+        rp.poly = function () {
+            // double check this to prevent external calls from running
+            if (rp.support()) {
+                return
+            }
+            var links = w.document.getElementsByTagName('link')
+            for (var i = 0; i < links.length; i++) {
+                var link = links[i]
+                // qualify links to those with rel=preload and as=style attrs
+                if (
+                    link.rel === 'preload' &&
+                    link.getAttribute('as') === 'style' &&
+                    !link.getAttribute('data-loadcss')
+                ) {
+                    // prevent rerunning on link
+                    link.setAttribute('data-loadcss', true)
+                    // bind listeners to toggle media back
+                    rp.bindMediaToggle(link)
+                }
+            }
+        }
+
+        // if unsupported, run the polyfill
+        if (!rp.support()) {
+            // run once at least
+            rp.poly()
+
+            // rerun poly on an interval until onload
+            var run = w.setInterval(rp.poly, 500)
+            if (w.addEventListener) {
+                w.addEventListener('load', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            } else if (w.attachEvent) {
+                w.attachEvent('onload', function () {
+                    rp.poly()
+                    w.clearInterval(run)
+                })
+            }
+        }
+
+        // commonjs
+        if (typeof exports !== 'undefined') {
+            exports.loadCSS = loadCSS
+        } else {
+            w.loadCSS = loadCSS
+        }
+    })(typeof global !== 'undefined' ? global : this)
+</script>
+
+    <style type="text/css">
+    @font-face {
+        font-family: 'Oswald-Regular';
+        src: url("/font/Oswald-Regular.ttf");
+    }
+
+    body {
+        margin: 0;
+    }
+
+    header,
+    footer,
+    .back-top,
+    .sidebar,
+    .container,
+    .site-intro-meta,
+    .toc-wrapper {
+        display: none;
+    }
+
+    .site-intro {
+        position: relative;
+        z-index: 3;
+        width: 100%;
+        /* height: 50vh; */
+        overflow: hidden;
+    }
+
+    .site-intro-placeholder {
+        position: absolute;
+        z-index: -2;
+        top: 0;
+        left: 0;
+        width: calc(100% + 300px);
+        height: 100%;
+        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
+        background-position: center center;
+        transform: translate3d(-226px, 0, 0);
+        animation: gradient-move 2.5s ease-out 0s infinite;
+    }
+
+    @keyframes gradient-move {
+        0% {
+            transform: translate3d(-226px, 0, 0);
+        }
+        100% {
+            transform: translate3d(0, 0, 0);
+        }
+    }
+</style>
+
+    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
+    <link rel="stylesheet" href="/css/dark.css">
+    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
+    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
+    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
+    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
+    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
+    <!-- algolia -->
+    
+    <!-- 百度统计  -->
+    
+    <!-- 谷歌统计  -->
+    
+<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+</head>
+
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script type="text/javascript">
+        if (typeof window.$ == undefined) {
+            console.warn('jquery load from jsdelivr failed, will load local script')
+            document.write('<script src="/lib/jquery.min.js" />')
+        }
+    </script>
+    
+        <body class="post-body">
+    
+        <!-- header -->
+        <header class="header header-mobile">
+    <!-- top read progress line -->
+    <div class="header-element">
+        <div class="read-progress"></div>
+    </div>
+    <!-- sidebar menu button -->
+    <div class="header-element">
+        
+            <div class="header-sidebar-menu">
+        
+            
+                <div style="padding-left: 1px;">&#xe775;</div>
+            
+        </div>
+    </div>
+    <!-- header actions -->
+    <div class="header-actions">
+        <!-- theme mode switch button -->
+        <span class="header-theme-btn header-element">
+            <i class="fas fa-adjust"></i>
+        </span>
+        <!-- back to home page text -->
+        <span class="home-link header-element">
+            <a href=/>codeMario's base.</a>
+        </span>
+    </div>
+    <!-- toggle banner for post layout -->
+    
+        
+            <div class="banner">
+        
+            <div class="blog-title header-element">
+                <a href="/">codeMario&#39;s base.</a>
+            </div>
+            <div class="post-title header-element">
+                <a href="#" class="post-name">Web前端_JavaScriptDay10_函数</a>
+            </div>
+        </div>
+    
+</header>
+
+        <!-- fixed footer -->
+        <footer class="footer-fixed">
+    <!-- back to top button -->
+    <div class="footer-fixed-element">
+        
+            <div class="back-top back-top-hidden">
+        
+        
+            <div>&#xe639;</div>
+        
+        </div>
+    </div>
+</footer>
+
+        <!-- wrapper -->
+        <div class="wrapper">
+            <div class="site-intro" style="
+
+
+
+
+
+
+
+    height:50vh;
+
+">
+    
+    <!-- 主页  -->
+    
+        
+    <!-- 404页  -->
+            
+    <div class="site-intro-placeholder"></div>
+    <div class="site-intro-img" style="background-image: url(/intro/post-bg.jpg)"></div>
+    <div class="site-intro-meta">
+        <!-- 标题  -->
+        <h1 class="intro-title">
+            <!-- 主页  -->
+            
+                Web前端_JavaScriptDay10_函数
+            <!-- 404 -->
+            
+        </h1>
+        <!-- 副标题 -->
+        <p class="intro-subtitle">
+            <!-- 主页副标题  -->
+            
+                
+            <!-- 404 -->
+            
+        </p>
+        <!-- 文章页 meta -->
+        
+            <div class="post-intros">
+                <!-- 文章页标签  -->
+                
+                    <div class= post-intro-tags >
+    
+    
+        <a class="post-tag" href="javascript:void(0);" data-tags="JavaScript">JavaScript</a>
+    
+</div>
+
+                
+                
+                    <div class="post-intro-read">
+                        <span>Word count: <span class="post-count word-count">3.6k</span>Reading time: <span class="post-count reading-time">15 min</span></span>
+                    </div>
+                
+                <div class="post-intro-meta">
+                    <!-- 撰写日期 -->
+                    <span class="iconfont-archer post-intro-calander">&#xe676;</span>
+                    <span class="post-intro-time">2022/01/31</span>
+                    <!-- busuanzi -->
+                    
+                        <span id="busuanzi_container_page_pv" class="busuanzi-pv">
+                            <span class="iconfont-archer post-intro-busuanzi">&#xe602;</span>
+                            <span id="busuanzi_value_page_pv"></span>
+                        </span>
+                    
+                    <!-- 文章分享 -->
+                    <span class="share-wrapper">
+                        <span class="iconfont-archer share-icon">&#xe71d;</span>
+                        <span class="share-text">Share</span>
+                        <ul class="share-list">
+                            <li class="iconfont-archer share-qr" data-type="qr">&#xe75b;
+                                <div class="share-qrcode"></div>
+                            </li>
+                            <li class="iconfont-archer" data-type="weibo">&#xe619;</li>
+                            <li class="iconfont-archer" data-type="qzone">&#xe62e;</li>
+                            <li class="iconfont-archer" data-type="twitter">&#xe634;</li>
+                            <li class="iconfont-archer" data-type="facebook">&#xe67a;</li>
+                        </ul>
+                    </span>
+                </div>
+            </div>
+        
+    </div>
+</div>
+
+            <script>
+  // get user agent
+  function getBrowserVersions() {
+    var u = window.navigator.userAgent
+    return {
+      userAgent: u,
+      trident: u.indexOf('Trident') > -1, //IE内核
+      presto: u.indexOf('Presto') > -1, //opera内核
+      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
+      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
+      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
+      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
+      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
+      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
+      iPad: u.indexOf('iPad') > -1, //是否为iPad
+      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
+      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
+      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
+    }
+  }
+  var browser = {
+    versions: getBrowserVersions(),
+  }
+  console.log('userAgent: ' + browser.versions.userAgent)
+
+  // callback
+  function fontLoaded() {
+    console.log('font loaded')
+    if (document.getElementsByClassName('site-intro-meta')) {
+      document
+        .getElementsByClassName('intro-title')[0]
+        .classList.add('intro-fade-in')
+      document
+        .getElementsByClassName('intro-subtitle')[0]
+        .classList.add('intro-fade-in')
+      var postIntros = document.getElementsByClassName('post-intros')[0]
+      if (postIntros) {
+        postIntros.classList.add('post-fade-in')
+      }
+    }
+  }
+
+  // UC不支持跨域，所以直接显示
+  function asyncCb() {
+    if (browser.versions.uc) {
+      console.log('UCBrowser')
+      fontLoaded()
+    } else {
+      WebFont.load({
+        custom: {
+          families: ['Oswald-Regular'],
+        },
+        loading: function () {
+          // 所有字体开始加载
+          // console.log('font loading');
+        },
+        active: function () {
+          // 所有字体已渲染
+          fontLoaded()
+        },
+        inactive: function () {
+          // 字体预加载失败，无效字体或浏览器不支持加载
+          console.log('inactive: timeout')
+          fontLoaded()
+        },
+        timeout: 5000, // Set the timeout to two seconds
+      })
+    }
+  }
+
+  function asyncErr() {
+    console.warn('script load from CDN failed, will load local script')
+  }
+
+  // load webfont-loader async, and add callback function
+  function async(u, cb, err) {
+    var d = document,
+      t = 'script',
+      o = d.createElement(t),
+      s = d.getElementsByTagName(t)[0]
+    o.src = u
+    if (cb) {
+      o.addEventListener(
+        'load',
+        function (e) {
+          cb(null, e)
+        },
+        false
+      )
+    }
+    if (err) {
+      o.addEventListener(
+        'error',
+        function (e) {
+          err(null, e)
+        },
+        false
+      )
+    }
+    s.parentNode.insertBefore(o, s)
+  }
+
+  var asyncLoadWithFallBack = function (arr, success, reject) {
+    var currReject = function () {
+      reject()
+      arr.shift()
+      if (arr.length) async(arr[0], success, currReject)
+    }
+
+    async(arr[0], success, currReject)
+  }
+
+  asyncLoadWithFallBack(
+    [
+      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
+      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
+      "/lib/webfontloader.min.js",
+    ],
+    asyncCb,
+    asyncErr
+  )
+</script>
+
+            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
+            <div class="container container-unloaded">
+                <main class="main post-page">
+    <article class="article-entry">
+        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><p>  无论是什么程序设计语言，函数都是重要的一部分内容，在实际开发过程中有很多语法的表达和功能的实现都来源于函数。不过与其它语言不同的是，JavaScript是通过函数来实现面向对象的特性并非通过专门的面向对象语法去实现的，因为JavaScript没有属于自己的专门的面向对象语法，所以函数在JavaScript中更是重中之重。</p>
+<h1 id="一、函数的介绍"><a href="#一、函数的介绍" class="headerlink" title="一、函数的介绍"></a>一、函数的介绍</h1><h2 id="1-什么是函数？"><a href="#1-什么是函数？" class="headerlink" title="1.什么是函数？"></a>1.什么是函数？</h2><p>  函数是执行特定任务的代码块，之后通过调用函数实现特定任务功能的实现。</p>
+<h2 id="2-函数的组成部分"><a href="#2-函数的组成部分" class="headerlink" title="2.函数的组成部分"></a>2.函数的组成部分</h2><ul>
+<li>关键字function。</li>
+<li>函数名称。</li>
+<li>函数所需要的参数，参数可以是0个，也可以是多个，参数之间要用逗号分隔。</li>
+<li>函数执行的代码块，即函数体。</li>
+<li>返回值语句return，函数通常都会有返回值，如果某个函数没有显式的返回值，默认返回值为undefined。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 function sum(number1,number2) &#123;</span><br><span class="line">2     var sum = number1 + number2;</span><br><span class="line">3     return sum;</span><br><span class="line">4 &#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="3-如何去调用函数？"><a href="#3-如何去调用函数？" class="headerlink" title="3.如何去调用函数？"></a>3.如何去调用函数？</h2><p>  在明白了函数的组成部分后，我们就可以成功创建函数了。不过这只是第一步，在我们创建函数之后要想去使用函数还需去调用函数，因为函数不调用的话是不会执行的。</p>
+<p>  调用函数的方法是在函数名加传递参数的括号即可。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function sum(number1,number2) &#123;</span><br><span class="line">    var sum = number1 + number2;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br><span class="line">var result = sum(5,4);</span><br><span class="line">console.log(result);        //9</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-关于函数中的参数"><a href="#4-关于函数中的参数" class="headerlink" title="4.关于函数中的参数"></a>4.关于函数中的参数</h2><p>  定义函数的时候我们可能会设置函数所需要的调用参数，这个参数的设定不是必须的，可以选择不设定。如果设定了调用参数，在调用函数的时候就必须要传递相关的参数值，程序才能正常执行。如果没有传递相关的参数值，未被传递参数值的地方就会默认为undefined。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">//函数中设置了调用参数但是在调用函数的过程中并未去传递相关参数值导致的结果。</span><br><span class="line">function sum1(number) &#123;</span><br><span class="line">    return number;</span><br><span class="line">&#125;</span><br><span class="line">var result1 = sum1();</span><br><span class="line">console.log(result1);    //undefined</span><br><span class="line"></span><br><span class="line">//函数中漏传参数导致参数+undefined得到NaN。</span><br><span class="line">function sum2(number1,number2) &#123;</span><br><span class="line">     return number1 + number2;</span><br><span class="line">&#125;</span><br><span class="line">var result2 = sum2(1);</span><br><span class="line">console.log(result2);    //NaN</span><br></pre></td></tr></table></figure>
+
+<p>  参数分为<strong>形式参数</strong>和<strong>实际参数</strong>两种，其中形式参数是指定义函数时所用到的参数，实际参数是指在调用函数时所传递的参数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function sum(number1,number2) &#123;</span><br><span class="line">    var sum = number1 + number2;</span><br><span class="line">    return sum;</span><br><span class="line">&#125;</span><br><span class="line">var result = sum(5,4,3,2,1);    //JavaScript只会解析5和4这两个值，最后输出结果9，其它会被忽略</span><br><span class="line">console.log(result);</span><br></pre></td></tr></table></figure>
+
+<p>  不过我们可以使用arguments变量在函数中去调用并返回接受的所有参数，arguments变量是内建变量，在每个函数中都能调用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">function args() &#123;</span><br><span class="line">    return arguments;</span><br><span class="line">&#125;</span><br><span class="line">var result = args(5,4,3,2,1,true,&quot;A&quot;,&#x27;b&#x27;);</span><br><span class="line">//Arguments(8) [5, 4, 3, 2, 1, true, &quot;A&quot;, &quot;b&quot;, callee: ƒ,Symbol(Symbol.iterator): ƒ]</span><br><span class="line">console.log(result);</span><br></pre></td></tr></table></figure>
+
+<p>  通过arguments可以对参数进行求和运算。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">function sum() &#123;</span><br><span class="line">    var result = 0;</span><br><span class="line">    for(var i = 0 ; i &lt; arguments.length ; i++) &#123;</span><br><span class="line">        result += arguments[i];</span><br><span class="line">    &#125;</span><br><span class="line">    return result;</span><br><span class="line">&#125;</span><br><span class="line">var res = sum(5,4,3,2,1);</span><br><span class="line">console.log(res);            //15</span><br></pre></td></tr></table></figure>
+
+<h1 id="二、parseInt"><a href="#二、parseInt" class="headerlink" title="二、parseInt()"></a>二、parseInt()</h1><p>  parseInt()会将接收到任何输入值转换为整数类型输出，通常都是输入字符串，转换失败则返回NaN。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> 1 var a = parseInt(&quot;5a7b6&quot;);</span><br><span class="line"> 2 console.log(a);            //5</span><br><span class="line"> 3 var b = parseInt(&quot;1024&quot;);</span><br><span class="line"> 4 console.log(b);            //1024</span><br><span class="line"> 5 var c = parseInt(&quot;abc1024&quot;);</span><br><span class="line"> 6 console.log(c);            //NaN</span><br><span class="line"> 7 var d = parseInt(&quot;3.14&quot;);</span><br><span class="line"> 8 console.log(d);            //3</span><br><span class="line"> 9 var e = parseInt(&quot;0124&quot;);</span><br><span class="line">10 console.log(e);            //124</span><br><span class="line">11 var f = parseInt(&quot;0x1024&quot;);</span><br><span class="line">12 console.log(f);            //4132</span><br></pre></td></tr></table></figure>
+
+<p>  parseInt(string,radix)中可以传两个值，第一个值可以解析的是字符串，第二个值解析的是数字的基数，即设定函数所要被解析的数据类型，其中可以传递的进制值范围在2~36之间，如果以”0x”开头第二参数则默认指定为16进制数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 var a = parseInt(&quot;0x1024&quot;);</span><br><span class="line">2 console.log(a);            //4132</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>注意：在这个函数的应用过程中我们会发现一个很有趣的现象，如果以“0x”开头的数字第二参数默认指定为16进制数，那么按道理以“0”开头的数字第二参数应该会被默认指定为8进制数，但是在现实中并不是这样的。如果我们使用parseInt()函数反而得不到这个结果，以“0”开头的数字最终会忽略0而被解析0后面的数字为10进制的数值。因为ECMAScript5移除了8进制的默认表示法，这种做法是避免了在8进制解析和10进制解析时候的混淆。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">1 var a = parseInt(&quot;0124&quot;);</span><br><span class="line">2 console.log(a);            //124</span><br></pre></td></tr></table></figure>
+
+<h1 id="三、parseFloat"><a href="#三、parseFloat" class="headerlink" title="三、parseFloat()"></a>三、parseFloat()</h1><p>  上面我们学习了parseInt()的使用，parseFloat()的使用与parseInt()是基本相同的，区别在于parseFloat()只能将输入值转换为十进制数，所以这个函数只能传入一个参数。而且parseFloat()解析的字符串返回的是一个浮点数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 var a = parseFloat(&quot;3.14a&quot;);</span><br><span class="line">2 console.log(a);            //3.14</span><br><span class="line">3 var b = parseFloat(&quot;3.14&quot;);</span><br><span class="line">4 console.log(b);            //3.14</span><br><span class="line">5 var c = parseFloat(&quot;1.230800&quot;);</span><br><span class="line">6 console.log(c);            //1.2308</span><br><span class="line">7 var d = parseFloat(&quot;ab12c&quot;);</span><br><span class="line">8 console.log(d);            //NaN</span><br></pre></td></tr></table></figure>
+
+<p>  parseFloat()可以接受指数形式的数据。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">1 var a = parseFloat(&quot;123e-2&quot;);</span><br><span class="line">2 console.log(a);            //1.23</span><br><span class="line">3 var b = parseFloat(&quot;1e5&quot;);</span><br><span class="line">4 console.log(b);            //100000</span><br></pre></td></tr></table></figure>
+
+<h1 id="四、isNaN"><a href="#四、isNaN" class="headerlink" title="四、isNaN()"></a>四、isNaN()</h1><p>　使用isNaN()函数可用于检查参数是否是非数字值。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(isNaN(1024));            //false</span><br><span class="line">2 console.log(isNaN(-1024));            //false</span><br><span class="line">3 console.log(isNaN(1.024));            //false</span><br><span class="line">4 console.log(isNaN(-1.024));            //false</span><br><span class="line">5 console.log(isNaN(2024-2));            //false</span><br><span class="line">6 console.log(isNaN(0));                //false</span><br><span class="line">7 console.log(isNaN(&quot;JavaScript&quot;));    //true</span><br><span class="line">8 console.log(isNaN(&quot;2021/01/01&quot;));    //true</span><br></pre></td></tr></table></figure>
+
+<p>  使用isNaN()函数可以检测parseInt()和parseFloat()是否成功调用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> 1 var a = isNaN(parseInt(&quot;0x1024&quot;));</span><br><span class="line"> 2 console.log(a);        //false</span><br><span class="line"> 3 var b = isNaN(parseFloat(&quot;1.1&quot;));</span><br><span class="line"> 4 console.log(b);        //false</span><br><span class="line"> 5 var c = isNaN(parseInt(&quot;1.2&quot;));</span><br><span class="line"> 6 console.log(c);        //false</span><br><span class="line"> 7 var d = isNaN(parseInt(&quot;ac1024&quot;));</span><br><span class="line"> 8 console.log(d);        //true</span><br><span class="line"> 9 var e = isNaN(parseFloat(&quot;ac1024&quot;));</span><br><span class="line">10 console.log(e);        //true</span><br></pre></td></tr></table></figure>
+
+<p>  值得一提的是，NaN自己不存在等值的概念，所以NaN &#x3D;&#x3D; NaN返回的是false。</p>
+<h1 id="五、isFinite"><a href="#五、isFinite" class="headerlink" title="五、isFinite()"></a>五、isFinite()</h1><p>  isFinite()可以检查输入的是否是一个非Infifnity非NaN的数字。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">1 console.log(isFinite(Infinity));    //false</span><br><span class="line">2 console.log(isFinite(-Infinity));    //false</span><br><span class="line">3 console.log(isFinite(1024));        //true</span><br><span class="line">4 console.log(isFinite(1e308));        //true</span><br><span class="line">5 console.log(isFinite(-1e308));        //true</span><br><span class="line">6 console.log(isFinite(1e309));        //false</span><br><span class="line">7 console.log(isFinite(-1e309));        //false</span><br></pre></td></tr></table></figure>
+
+<h1 id="六、eval"><a href="#六、eval" class="headerlink" title="六、eval()"></a>六、eval()</h1><p>  eval()函数会将输入的字符串当做JavaScript代码执行。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">eval(&#x27;var a = 1;&#x27;);</span><br><span class="line">console.log(a);            //1</span><br></pre></td></tr></table></figure>
+
+<h1 id="七、变量的作用域"><a href="#七、变量的作用域" class="headerlink" title="七、变量的作用域"></a>七、变量的作用域</h1><p>　在JavaScript中，变量的作用域是以函数作为作用域的，即变量如果是在某个函数定义的，该变量在函数以外的地方是不可见的。如果该变量是定义在if或者for这样的代码块中，它在代码块之外是可见的。定义在所有函数之外的变量是全局变量，定义在函数中的变量是局部变量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"> 1 var number1 = 1;</span><br><span class="line"> 2 function f() &#123;</span><br><span class="line"> 3     var number2 = 4;</span><br><span class="line"> 4     number1++;</span><br><span class="line"> 5     console.log(number2);   //4</span><br><span class="line"> 6     return number1;</span><br><span class="line"> 7 &#125;</span><br><span class="line"> 8 console.log(number1);   //1</span><br><span class="line"> 9 var result = f();</span><br><span class="line">10 console.log(result);    //2</span><br><span class="line">11 console.log(number2);   //Uncaught ReferenceError: number2 is not defined</span><br></pre></td></tr></table></figure>
+
+<p>　由以上示例可以看出函数f()可以访问number1，number1是全局变量，而在函数体外number2无法被访问，因为number2是局部变量，局部变量只能在本函数中被访问。<br>　但是，在JavaScript中总有一些令人比较惊讶的现象。如果在声明变量的时候没有去使用关键字变量去定义相关变量的话，该变量会被默认为全局变量。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 var number1 = 1;</span><br><span class="line">2 function f() &#123;</span><br><span class="line">3     number2 = 2;</span><br><span class="line">4 &#125;</span><br><span class="line">5 f();</span><br><span class="line">6 console.log(number2);        //2</span><br></pre></td></tr></table></figure>
+
+<h1 id="八、匿名函数"><a href="#八、匿名函数" class="headerlink" title="八、匿名函数"></a>八、匿名函数</h1><p>  没有名字的函数被称为匿名函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">1 var a = function() &#123;</span><br><span class="line">2     return 2;</span><br><span class="line">3 &#125;</span><br><span class="line">4 var b = function(x) &#123;</span><br><span class="line">5     return x;</span><br><span class="line">6 &#125;</span><br></pre></td></tr></table></figure>
+
+<p>　形如以上的示例就是匿名函数。当匿名函数不被赋值给变量去单独使用的时候，这类函数有两种用法：</p>
+<ul>
+<li>可以将匿名函数作为参数传递给其它函数，这样接收方函数可以利用传递的函数完成某些事情。</li>
+<li>可以去定义某个匿名函数执行某些一次性任务。</li>
+<li>在后面的内容中我们会用到这些用法。</li>
+</ul>
+<h1 id="九、回调函数"><a href="#九、回调函数" class="headerlink" title="九、回调函数"></a>九、回调函数</h1><h2 id="1-回调函数与匿名回调函数"><a href="#1-回调函数与匿名回调函数" class="headerlink" title="1.回调函数与匿名回调函数"></a>1.回调函数与匿名回调函数</h2><p>  函数A传递给函数B，函数B来执行函数A的时候，A就是一个回调函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1 function sum(a) &#123;</span><br><span class="line">2     return a();</span><br><span class="line">3 &#125;</span><br><span class="line">4 var result = sum( </span><br><span class="line">5     function() &#123;</span><br><span class="line">6         return 1;</span><br><span class="line">7     &#125;</span><br><span class="line">8     );  </span><br><span class="line">9     console.log(result);    //1</span><br></pre></td></tr></table></figure>
+
+<p>  也可以使用回调函数进行进行加法运算。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"> 1 function sum(a,b,c) &#123;</span><br><span class="line"> 2     return a() + b() + c();</span><br><span class="line"> 3 &#125;</span><br><span class="line"> 4 var result = sum(</span><br><span class="line"> 5     </span><br><span class="line"> 6     function() &#123;</span><br><span class="line"> 7         return 1;</span><br><span class="line"> 8     &#125;,</span><br><span class="line"> 9     function() &#123;</span><br><span class="line">10         return 2.5;</span><br><span class="line">11     &#125;,</span><br><span class="line">12     function() &#123;</span><br><span class="line">13         return 3;</span><br><span class="line">14     &#125;</span><br><span class="line">15     );  </span><br><span class="line">16     console.log(result);    //6.5</span><br></pre></td></tr></table></figure>
+
+<p>  我们看到这两个示例中在调用sum的时候都是使用了匿名函数，而且这些匿名函数也是一个回调函数，这样的函数我们称之为匿名回调函数。</p>
+<h2 id="2-什么情况下使用回调函数？"><a href="#2-什么情况下使用回调函数？" class="headerlink" title="2.什么情况下使用回调函数？"></a>2.什么情况下使用回调函数？</h2><ul>
+<li>在未命名的情况下去传递函数，从而节省变量名的使用。</li>
+<li>将一个函数调用给另一个函数去执行，可以节省一些代码编写工作。</li>
+<li>在数据量很大的情况下使用回调函数是一个好的选择。</li>
+</ul>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> 1 function sum(a,b,c,returnValue) &#123;</span><br><span class="line"> 2     var array = [];</span><br><span class="line"> 3     for(var i = 0;i &lt; 3;i++) &#123;</span><br><span class="line"> 4         array[i] = returnValue(arguments[i] * 2);</span><br><span class="line"> 5     &#125;</span><br><span class="line"> 6     return array;</span><br><span class="line"> 7 &#125;</span><br><span class="line"> 8 </span><br><span class="line"> 9 var result = sum(1,2,3,function(a) &#123;</span><br><span class="line">10     return a + 1;</span><br><span class="line">11 &#125;);</span><br><span class="line">12 </span><br><span class="line">13 console.log(result);        //[3, 5, 7]</span><br></pre></td></tr></table></figure>
+
+<h1 id="十、即时函数"><a href="#十、即时函数" class="headerlink" title="十、即时函数"></a>十、即时函数</h1><p>  可以在被定义后<strong>立即调用</strong>的函数是即时函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 (</span><br><span class="line">2     function() &#123;</span><br><span class="line">3         console.log(&#x27;JavaScript&#x27;);    //JavaScript</span><br><span class="line">4     &#125;</span><br><span class="line">5 )();</span><br></pre></td></tr></table></figure>
+
+<p>  <strong>括号也可以放在第二对括号之后。</strong></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">1 (</span><br><span class="line">2     function(message) &#123;</span><br><span class="line">3         console.log(&#x27;Hello &#x27; + message);        //Hello JavaScript</span><br><span class="line">4     &#125;</span><br><span class="line">5 (&#x27;JavaScript&#x27;));</span><br></pre></td></tr></table></figure>
+
+<p>  使用匿名函数的好处是不会产生任何全局变量。缺点是在于这样的函数是无法重复执行的，这也使即时函数非常适合于去执行一些一次性的或初始化的任务。</p>
+<h1 id="十一、内部函数"><a href="#十一、内部函数" class="headerlink" title="十一、内部函数"></a>十一、内部函数</h1><h2 id="1-什么是内部函数？"><a href="#1-什么是内部函数？" class="headerlink" title="1.什么是内部函数？"></a>1.什么是内部函数？</h2><p>  在一个函数内部定义另一个函数，内部定义的函数就被称为内部函数，内部函数也叫做私有函数，只能在内部去访问。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">1 function outer(param) &#123;</span><br><span class="line">2     </span><br><span class="line">3     function inner(theinput) &#123;</span><br><span class="line">4         return theinput * 2;</span><br><span class="line">5     &#125;</span><br><span class="line">6           return &#x27;The result is &#x27; + inner(param);</span><br><span class="line">7 &#125;</span><br><span class="line">8 </span><br><span class="line">9 console.log(outer(2));        //The result is 4</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-私有函数的特点"><a href="#2-私有函数的特点" class="headerlink" title="2.私有函数的特点"></a>2.私有函数的特点</h2><ul>
+<li>确保全局名字空间的唯一性，以免命名冲突。</li>
+<li>确保一些函数的私有性，做到只将一部分必要的函数暴露在外，具有一定的安全性。</li>
+</ul>
+<h1 id="十二、返回函数的函数"><a href="#十二、返回函数的函数" class="headerlink" title="十二、返回函数的函数"></a>十二、返回函数的函数</h1><p>  返回函数的函数听起来有些奇怪，不过细细想一想的话就是在一个函数中的返回值也是一个函数，这就是返回函数的函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> 1 function a() &#123;</span><br><span class="line"> 2     console.log(&quot;Hello&quot;);</span><br><span class="line"> 3     return function() &#123;</span><br><span class="line"> 4         console.log(&quot;JavaScript&quot;);</span><br><span class="line"> 5     &#125;</span><br><span class="line"> 6 &#125;</span><br><span class="line"> 7 var result = a();    //Hello</span><br><span class="line"> 8 result();    //JavaScript</span><br><span class="line"> 9 </span><br><span class="line">10 //也可以这样去输出，结果是相同的</span><br><span class="line">11 //a()();    //Hello</span><br><span class="line">12             //JavaScript</span><br></pre></td></tr></table></figure>
+
+<h1 id="十三、函数可以被重写"><a href="#十三、函数可以被重写" class="headerlink" title="十三、函数可以被重写"></a>十三、函数可以被重写</h1><p>  还是上面的例子，我们可以使用新的函数去覆盖旧的函数，我们在函数内部去重写函数覆盖外部的函数。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">1 function a() &#123;</span><br><span class="line">2     alert(&quot;Hello&quot;);</span><br><span class="line">3     b = function() &#123;</span><br><span class="line">4         alert(&quot;JavaScript&quot;);</span><br><span class="line">5     &#125;</span><br><span class="line">6 &#125;</span><br><span class="line">7 a();    //Hello</span><br><span class="line">8 b();    //JavaScript</span><br></pre></td></tr></table></figure>
+
+<h1 id="十四、闭包"><a href="#十四、闭包" class="headerlink" title="十四、闭包"></a>十四、闭包</h1><p>  在看闭包之前先看一个示例：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"> 1 function sum(number) &#123;</span><br><span class="line"> 2     var all = 0;</span><br><span class="line"> 3     return all += number;</span><br><span class="line"> 4 &#125;</span><br><span class="line"> 5 </span><br><span class="line"> 6 console.log(sum(1));    //1</span><br><span class="line"> 7 console.log(sum(1));    //1</span><br><span class="line"> 8 console.log(sum(1));    //1</span><br><span class="line"> 9 console.log(sum(1));    //1</span><br><span class="line">10 console.log(sum(2));    //2</span><br><span class="line">11 console.log(sum(2));    //2</span><br><span class="line">12 console.log(sum(3));    //3</span><br></pre></td></tr></table></figure>
+
+<p>　上面的示例中我们如果不改变传入函数的数值无论是调用多少次最终的结果就不会被改变，在某些应用场景下这是极其不方便的，这时候就引入了闭包。在使用闭包的时候，我们可以在反复调用的过程中去不停的进行值的改变。在实际中我们可以以日常多开网站去举例。<br>  我们日常可能会多开好几个网站，每个网站我们可能会在同一个浏览器上打开好几个，在我们打开同一个浏览器好几个页面的时候会占用内存空间，几个页面运行的过程中可以看做是反复调用函数，这个过程中我们在同一个浏览器去打开多个页面的时候每次打开的页面都和我们上次打开的页面不同，这个过程细化过来我们可以将其看做是闭包，是调用函数且还占用内存去执行并变化的过程，变量会一直保留在内存中，所以我们在最小化浏览器页面后浏览器并未被关闭，内存依然会被占用。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"> 1 function sum(number) &#123;</span><br><span class="line"> 2     var all = 0;</span><br><span class="line"> 3     return function() &#123;</span><br><span class="line"> 4         all += 1;</span><br><span class="line"> 5         return all;</span><br><span class="line"> 6     &#125;</span><br><span class="line"> 7 &#125;</span><br><span class="line"> 8 </span><br><span class="line"> 9 var storage = sum();</span><br><span class="line">10 console.log(storage());    //1</span><br><span class="line">11 console.log(storage());    //2</span><br><span class="line">12 console.log(storage());    //3</span><br><span class="line">13 console.log(storage());    //4</span><br></pre></td></tr></table></figure>
+
+<p>　 从上面的示例可以明白闭包是创建一个函数，用一些变量<strong>包装</strong>起来，之后再保存起来去使用，而函数保留对其作用域访问的过程我们就称之为闭包。<br>  当然，每次在定义函数的时候都会为函数创建闭包，所以我们可以说每个函数都有闭包。<strong>但是，只有我们在使用嵌套函数的时候闭包的功能才能真正发挥出来</strong>。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"> 1 var number = 1;</span><br><span class="line"> 2 function sum1() &#123;</span><br><span class="line"> 3     var number = 4;        //覆盖了上面的number</span><br><span class="line"> 4     </span><br><span class="line"> 5     function sum2() &#123;</span><br><span class="line"> 6         console.log(&quot;这个数字为：&quot; + number);        //sum2()函数和其中的语法形成了一个闭包，引用的sum1()中局部声明的number变量。</span><br><span class="line"> 7     &#125;</span><br><span class="line"> 8     return sum2();</span><br><span class="line"> 9 &#125;</span><br><span class="line">10 sum1();        //这个数字为：4</span><br></pre></td></tr></table></figure>
+
+
+    </article>
+    <!-- license -->
+    
+        <div class="license-wrapper">
+            <p>Author：<a href="http://example.com">John Doe</a>
+            <p>Link：<a href="http://example.com/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScriptDay10-%E5%87%BD%E6%95%B0/">http://example.com/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScriptDay10-%E5%87%BD%E6%95%B0/</a>
+            <p>Publish date：<a href="http://example.com/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScriptDay10-%E5%87%BD%E6%95%B0/">January 31st 2022, 2:09:09 am</a>
+            <p>Update date：<a href="http://example.com/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScriptDay10-%E5%87%BD%E6%95%B0/">January 31st 2022, 2:09:38 am</a>
+            <p>License：本文采用<a rel="license noopener" target="_blank" href="http://creativecommons.org/licenses/by-nc/4.0/">知识共享署名-非商业性使用 4.0 国际许可协议</a>进行许可</p>
+        </div>
+    
+    <!-- paginator -->
+    <ul class="post-paginator">
+        <li class="next">
+            
+                <div class="nextSlogan">Next Post</div>
+                <a href="/2022/01/31/%E4%BD%BF%E7%94%A8kali%E5%8E%BB%E7%A0%B4%E8%A7%A3windows%E4%B8%BB%E6%9C%BA%E5%AF%86%E7%A0%81/" title="使用kali去破解windows主机密码">
+                    <div class="nextTitle">使用kali去破解windows主机密码</div>
+                </a>
+            
+        </li>
+        <li class="previous">
+            
+                <div class="prevSlogan">Previous Post</div>
+                <a href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F/" title="Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式">
+                    <div class="prevTitle">Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式</div>
+                </a>
+            
+        </li>
+    </ul>
+    <!-- comment -->
+    
+        <div class="post-comment">
+            <!-- 来必力 City 版安装代码 -->
+
+
+            
+
+            
+
+            
+
+            <!-- utteranc评论 -->
+
+
+            <!-- partial('_partial/comment/changyan') -->
+            <!--PC版-->
+
+
+            
+            
+    <script src="//cdn1.lncld.net/static/js/3.0.4/av-min.js"></script>
+    <script src='//unpkg.com/valine/dist/Valine.min.js'></script>
+    <div id="comment"></div>
+    <script>
+        new Valine({
+            el: '#comment',
+            notify:false,
+            verify:false,
+            appId: "WpN2taXdjtJOc4Cu7LRoQ1tO-gzGzoHsz",
+            appKey: "rWMuao9pGx49QOzohhiRN36e",
+            placeholder: "",
+            path:window.location.pathname,
+            avatar:'mm'
+        });
+    </script>
+
+
+            
+
+        </div>
+    
+    <!-- timeliness note -->
+    <!-- idea from: https://hexo.fluid-dev.com/posts/hexo-injector/#%E6%96%87%E7%AB%A0%E6%97%B6%E6%95%88%E6%80%A7%E6%8F%90%E7%A4%BA -->
+    
+    <!-- Mathjax -->
+    
+</main>
+
+                <!-- profile -->
+                
+            </div>
+            <footer class="footer footer-unloaded">
+    <!-- social  -->
+    
+        <div class="social">
+            
+    
+        
+            
+                <a href="mailto:J385251693@163.com" class="iconfont-archer email" title=email ></a>
+            
+        
+    
+        
+            
+                <a href="https://github.com/codemariosec" class="iconfont-archer github" target="_blank" title=github></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="https://www.zhihu.com/people/ignorant-19-73" class="iconfont-archer zhihu" target="_blank" title=zhihu></a>
+            
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+    
+        
+            
+                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
+            
+        
+    
+
+
+        </div>
+    
+    <!-- powered by Hexo  -->
+    <div class="copyright">
+        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
+    </div>
+    <!-- website approve for Chinese user -->
+    
+    <!-- 不蒜子  -->
+    
+        <div class="busuanzi-container">
+            
+             
+                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
+            
+        </div>
+    	
+</footer>
+
+        </div>
+        <!-- toc -->
+        
+            <div class="toc-wrapper toc-wrapper-loding" style=
+
+
+
+
+
+
+
+    top:50vh;
+
+>
+                <div class="toc-catalog">
+                    <span class="iconfont-archer catalog-icon">&#xe613;</span><span>CATALOG</span>
+                </div>
+                <ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%89%8D%E8%A8%80"><span class="toc-number">1.</span> <span class="toc-text">前言</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%80%E3%80%81%E5%87%BD%E6%95%B0%E7%9A%84%E4%BB%8B%E7%BB%8D"><span class="toc-number">2.</span> <span class="toc-text">一、函数的介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-number">2.1.</span> <span class="toc-text">1.什么是函数？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E5%87%BD%E6%95%B0%E7%9A%84%E7%BB%84%E6%88%90%E9%83%A8%E5%88%86"><span class="toc-number">2.2.</span> <span class="toc-text">2.函数的组成部分</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-%E5%A6%82%E4%BD%95%E5%8E%BB%E8%B0%83%E7%94%A8%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-number">2.3.</span> <span class="toc-text">3.如何去调用函数？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-%E5%85%B3%E4%BA%8E%E5%87%BD%E6%95%B0%E4%B8%AD%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-number">2.4.</span> <span class="toc-text">4.关于函数中的参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%8C%E3%80%81parseInt"><span class="toc-number">3.</span> <span class="toc-text">二、parseInt()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%89%E3%80%81parseFloat"><span class="toc-number">4.</span> <span class="toc-text">三、parseFloat()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%9B%9B%E3%80%81isNaN"><span class="toc-number">5.</span> <span class="toc-text">四、isNaN()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%BA%94%E3%80%81isFinite"><span class="toc-number">6.</span> <span class="toc-text">五、isFinite()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AD%E3%80%81eval"><span class="toc-number">7.</span> <span class="toc-text">六、eval()</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B8%83%E3%80%81%E5%8F%98%E9%87%8F%E7%9A%84%E4%BD%9C%E7%94%A8%E5%9F%9F"><span class="toc-number">8.</span> <span class="toc-text">七、变量的作用域</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%85%AB%E3%80%81%E5%8C%BF%E5%90%8D%E5%87%BD%E6%95%B0"><span class="toc-number">9.</span> <span class="toc-text">八、匿名函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E4%B9%9D%E3%80%81%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">10.</span> <span class="toc-text">九、回调函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%E4%B8%8E%E5%8C%BF%E5%90%8D%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0"><span class="toc-number">10.1.</span> <span class="toc-text">1.回调函数与匿名回调函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E4%BD%BF%E7%94%A8%E5%9B%9E%E8%B0%83%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-number">10.2.</span> <span class="toc-text">2.什么情况下使用回调函数？</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E3%80%81%E5%8D%B3%E6%97%B6%E5%87%BD%E6%95%B0"><span class="toc-number">11.</span> <span class="toc-text">十、即时函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%80%E3%80%81%E5%86%85%E9%83%A8%E5%87%BD%E6%95%B0"><span class="toc-number">12.</span> <span class="toc-text">十一、内部函数</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%85%E9%83%A8%E5%87%BD%E6%95%B0%EF%BC%9F"><span class="toc-number">12.1.</span> <span class="toc-text">1.什么是内部函数？</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-%E7%A7%81%E6%9C%89%E5%87%BD%E6%95%B0%E7%9A%84%E7%89%B9%E7%82%B9"><span class="toc-number">12.2.</span> <span class="toc-text">2.私有函数的特点</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%BA%8C%E3%80%81%E8%BF%94%E5%9B%9E%E5%87%BD%E6%95%B0%E7%9A%84%E5%87%BD%E6%95%B0"><span class="toc-number">13.</span> <span class="toc-text">十二、返回函数的函数</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E4%B8%89%E3%80%81%E5%87%BD%E6%95%B0%E5%8F%AF%E4%BB%A5%E8%A2%AB%E9%87%8D%E5%86%99"><span class="toc-number">14.</span> <span class="toc-text">十三、函数可以被重写</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E5%8D%81%E5%9B%9B%E3%80%81%E9%97%AD%E5%8C%85"><span class="toc-number">15.</span> <span class="toc-text">十四、闭包</span></a></li></ol>
+            </div>
+        
+        <!-- sidebar -->
+        <div class="sidebar sidebar-hide">
+    <ul class="sidebar-tabs sidebar-tabs-active-0">
+        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
+        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
+        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
+    </ul>
+    <div class="sidebar-content sidebar-content-show-archive">
+        <div class="sidebar-panel-archives">
+    <!-- 在 ejs 中将 archive 按照时间排序 -->
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    <div class="total-and-search">
+        <div class="total-archive">
+        Total : 5
+        </div>
+        <!-- search  -->
+        
+    </div>
+    
+    <div class="post-archive">
+    
+        
+            
+            
+            <div class="archive-year"> 2022 </div>
+            <ul class="year-list">
+            
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/31</span>
+            <a class="archive-post-title" href="/2022/01/31/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81%E7%A0%B4%E8%A7%A3/">Linux操作系统密码破解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/31</span>
+            <a class="archive-post-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScriptDay10-%E5%87%BD%E6%95%B0/">Web前端_JavaScriptDay10_函数</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/31</span>
+            <a class="archive-post-title" href="/2022/01/31/%E4%BD%BF%E7%94%A8kali%E5%8E%BB%E7%A0%B4%E8%A7%A3windows%E4%B8%BB%E6%9C%BA%E5%AF%86%E7%A0%81/">使用kali去破解windows主机密码</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/31</span>
+            <a class="archive-post-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day1-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9D%E6%AD%A5%E7%90%86%E8%A7%A3/">Web前端_JavaScript的Day1_面向对象的初步理解</a>
+        </li>
+    
+        
+        <li class="archive-post-item">
+            <span class="archive-post-date">01/31</span>
+            <a class="archive-post-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式</a>
+        </li>
+    
+    </div>
+</div>
+
+        <div class="sidebar-panel-tags">
+    <div class="sidebar-tags-name">
+        
+            <span class="sidebar-tag-name" data-tags="JavaScript">
+                <span class="iconfont-archer">&#xe606;</span>
+                JavaScript
+            </span>
+        
+            <span class="sidebar-tag-name" data-tags="kali">
+                <span class="iconfont-archer">&#xe606;</span>
+                kali
+            </span>
+        
+    </div>
+    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
+    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
+        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
+    </div> 
+    <div class="sidebar-tags-list"></div>
+</div>
+
+        <div class="sidebar-panel-categories">
+    <div class="sidebar-categories-name">
+    
+        <span class="sidebar-category-name" data-categories="前端">
+            <span class="iconfont-archer">&#xe60a;</span>
+            前端
+        </span>
+    
+        <span class="sidebar-category-name" data-categories="信息安全">
+            <span class="iconfont-archer">&#xe60a;</span>
+            信息安全
+        </span>
+    
+    </div>
+    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
+    <div class="sidebar-categories-list"></div>
+</div>
+
+    </div>
+</div>
+
+        <!-- site-meta -->
+        <script>
+    var siteMetaRoot = "/"
+    if (siteMetaRoot === "undefined") {
+        siteMetaRoot = '/'
+    }
+    var siteMeta = {
+        url: "http://example.com",
+        root: siteMetaRoot,
+        author: "John Doe"
+    }
+</script>
+
+        <!-- import experimental options here -->
+        <!-- Custom Font -->
+
+
+        <!-- main func -->
+        <script src="/scripts/main.js?v=20211217"></script>
+        <!-- dark mode -->
+        <script src="/scripts/dark.js?v=20211217"></script>
+        <!-- fancybox -->
+        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
+        <!-- algolia -->
+        
+        <!-- busuanzi -->
+        
+            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
+        
+        <!-- CNZZ -->
+        
+        <!-- async load share.js -->
+        
+            <script src="/scripts/share.js?v=20211217" async></script>
+        
+        <!-- mermaid -->
+        
+            <script src='https://cdn.jsdelivr.net/npm/mermaid@8.11.0/dist/mermaid.min.js'></script>
+            <script>
+                if (window.mermaid) {
+                    mermaid.initialize({theme: 'dark'});
+                }
+            </script>
+        
+    </body>
+</html>
