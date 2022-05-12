@@ -6,7 +6,7 @@
   <link href="https://codemariosec.github.io/atom.xml" rel="self"/>
   
   <link href="https://codemariosec.github.io/"/>
-  <updated>2022-03-26T12:44:11.075Z</updated>
+  <updated>2022-05-12T07:56:58.494Z</updated>
   <id>https://codemariosec.github.io/</id>
   
   <author>
@@ -15,6 +15,30 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Pcap文件详解</title>
+    <link href="https://codemariosec.github.io/2022/05/12/pcap%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3/"/>
+    <id>https://codemariosec.github.io/2022/05/12/pcap%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3/</id>
+    <published>2022-05-12T07:49:38.000Z</published>
+    <updated>2022-05-12T07:56:58.494Z</updated>
+    
+    <content type="html"><![CDATA[<h1 id="Pcap文件详解"><a href="#Pcap文件详解" class="headerlink" title="Pcap文件详解"></a>Pcap文件详解</h1><h2 id="一、简介"><a href="#一、简介" class="headerlink" title="一、简介"></a>一、简介</h2><p>​    pcap文件是一种常用的数据报存储格式，里面的数据按照特定的规格存储和解析。</p><p>​    一般来说使用普通的笔记本打开的pcap文件显示的是乱码，所以我们需要使用支持16进制格式的工具去查看该文件，这里使用<a href="https://hexed.it/%E8%BF%99%E4%B8%AA%E5%9C%A8%E7%BA%BF%E7%BD%91%E7%AB%99%E5%8E%BB%E6%9F%A5%E7%9C%8B%E3%80%82">https://hexed.it/这个在线网站去查看。</a></p><h2 id="二、文件格式"><a href="#二、文件格式" class="headerlink" title="二、文件格式"></a>二、文件格式</h2><p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%9E%84%E6%88%90.png" alt="文件格式构成"></p><p>​    pcag文件格式主要是由文件头-数据包头1-数据包1-数据包头2-数据包2这类格式组成。其中文件头只有一个，数据包头和数据包可以有多个，如下图所示。</p><p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E6%9E%84%E6%88%90%E8%AF%A6%E6%83%85.png" alt="文件格式构成详情"></p><p>​    每个pcap文件只有一个文件头，里面包含7个字段，总共占24(B)字节。</p><h3 id="1-Pcap-Header"><a href="#1-Pcap-Header" class="headerlink" title="1.Pcap Header"></a>1.Pcap Header</h3><table><thead><tr><th align="center">header field</th><th align="center">size</th><th align="center">explain</th></tr></thead><tbody><tr><td align="center">Magic</td><td align="center">4B</td><td align="center">标记文件开始，并用来识别文件和字节顺序</td></tr><tr><td align="center">Major</td><td align="center">2B</td><td align="center">当前Pcap文件的主要版本号，一般为0x0200</td></tr><tr><td align="center">Minor</td><td align="center">2B</td><td align="center">当前Pcap文件的次要版本号，一般为0x0400</td></tr><tr><td align="center">ThisZone</td><td align="center">4B</td><td align="center">当地的标准事件，如果用的是GMT则全零，一般全零</td></tr><tr><td align="center">SigFlags</td><td align="center">4B</td><td align="center">时间戳的精度，一般为全零</td></tr><tr><td align="center">SnapLen</td><td align="center">4B</td><td align="center">所抓获的数据包的最大长度</td></tr><tr><td align="center">LinkType</td><td align="center">4B</td><td align="center">数据链路类型</td></tr></tbody></table><h3 id="2-Packet-Header"><a href="#2-Packet-Header" class="headerlink" title="2.Packet Header"></a>2.Packet Header</h3><table><thead><tr><th align="center">header field</th><th align="center">size</th><th align="center">explain</th></tr></thead><tbody><tr><td align="center">Timestamp</td><td align="center">4B</td><td align="center">时间戳高位，精确到seconds</td></tr><tr><td align="center">Timestamp</td><td align="center">4B</td><td align="center">时间戳低位，能够精确到microseconds</td></tr><tr><td align="center">Caplen</td><td align="center">4B</td><td align="center">即抓取到的数据帧长度，由此可以得到下一个数据帧的位置。</td></tr><tr><td align="center">Len</td><td align="center">4B</td><td align="center">实际的数据帧长度</td></tr></tbody></table><h3 id="3-Packet-Data"><a href="#3-Packet-Data" class="headerlink" title="3.Packet Data"></a>3.Packet Data</h3><p>​    Packet是链路层的数据帧，其长度是Packet Header中定义的Caplen值，所以Packet Data的长度为Caplen。</p><h3 id="4-案例"><a href="#4-案例" class="headerlink" title="4.案例"></a>4.案例</h3><p>​    打开文件后如图所示（这里截取前面的部分）</p><p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/demo_1.png" alt="demo_1"></p><h4 id="Pcap-Header"><a href="#Pcap-Header" class="headerlink" title="Pcap Header"></a>Pcap Header</h4><p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/pacp_header.png" alt="pacp_header"></p><table><thead><tr><th align="center">header field</th><th align="center">value</th></tr></thead><tbody><tr><td align="center">Magic</td><td align="center">0XD4C3B2A1</td></tr><tr><td align="center">Major</td><td align="center">0X0002</td></tr><tr><td align="center">Minor</td><td align="center">0X0004</td></tr><tr><td align="center">ThisZone</td><td align="center">0X00000000</td></tr><tr><td align="center">SigFlags</td><td align="center">0X00000000</td></tr><tr><td align="center">SnapLen</td><td align="center">0X00040000</td></tr><tr><td align="center">LinkType</td><td align="center">0X00000001</td></tr></tbody></table><h4 id="Packet-Header"><a href="#Packet-Header" class="headerlink" title="Packet Header"></a>Packet Header</h4><p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/packet_header.png" alt="packet_header"></p><table><thead><tr><th align="center">header field</th><th align="center">value</th></tr></thead><tbody><tr><td align="center">Timestamp</td><td align="center">0X6279C37B</td></tr><tr><td align="center">Timestamp</td><td align="center">0X0009EDB4</td></tr><tr><td align="center">Caplen</td><td align="center">0X00000042</td></tr><tr><td align="center">Len</td><td align="center">0X00000042</td></tr></tbody></table><h4 id="Packet-Data"><a href="#Packet-Data" class="headerlink" title="Packet Data"></a>Packet Data</h4><p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/packet_data.png" alt="packet_data"></p><p>​    数据包大小为0X00000042 &#x3D; 66B</p>]]></content>
+    
+    
+      
+      
+    <summary type="html">&lt;h1 id=&quot;Pcap文件详解&quot;&gt;&lt;a href=&quot;#Pcap文件详解&quot; class=&quot;headerlink&quot; title=&quot;Pcap文件详解&quot;&gt;&lt;/a&gt;Pcap文件详解&lt;/h1&gt;&lt;h2 id=&quot;一、简介&quot;&gt;&lt;a href=&quot;#一、简介&quot; class=&quot;headerlink&quot; </summary>
+      
+    
+    
+    
+    <category term="网络" scheme="https://codemariosec.github.io/categories/%E7%BD%91%E7%BB%9C/"/>
+    
+    
+    <category term="Pacp" scheme="https://codemariosec.github.io/tags/Pacp/"/>
+    
+  </entry>
   
   <entry>
     <title>Linux操作系统密码破解</title>
