@@ -1,998 +1,161 @@
-<!DOCTYPE html>
-<html lang="en">
-    <!-- title -->
-
-
-    
-
-<!-- keywords -->
-
-
-
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
-    <meta name="author" content="codeMario">
-    <meta name="renderer" content="webkit">
-    <meta name="copyright" content="codeMario">
-    
-        <meta name="keywords" content="hexo,hexo-theme,hexo-blog">
-    
-    <meta name="description" content="">
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
-<meta property="og:url" content="https://codemariosec.github.io/archives/index.html">
-<meta property="og:site_name" content="Hexo">
-<meta property="og:locale" content="en_US">
-<meta property="article:author" content="codeMario">
-<meta name="twitter:card" content="summary">
-    <meta http-equiv="Cache-control" content="no-cache">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <link rel="icon" href="/assets/a.ico">
-    
-    <title>codeMario&#39;s base</title>
-    <!-- /*! loadCSS. [c]2017 Filament Group, Inc. MIT License */
-/* This file is meant as a standalone workflow for
-- testing support for link[rel=preload]
-- enabling async CSS loading in browsers that do not support rel=preload
-- applying rel preload css once loaded, whether supported or not.
-*/ -->
-<script>
-    (function (w) {
-        'use strict'
-        // rel=preload support test
-        if (!w.loadCSS) {
-            w.loadCSS = function () {}
-        }
-        // define on the loadCSS obj
-        var rp = (loadCSS.relpreload = {})
-        // rel=preload feature support test
-        // runs once and returns a function for compat purposes
-        rp.support = (function () {
-            var ret
-            try {
-                ret = w.document.createElement('link').relList.supports('preload')
-            } catch (e) {
-                ret = false
-            }
-            return function () {
-                return ret
-            }
-        })()
+  <meta charset="utf-8">
+  
+  <title>Archives | codeMario | hello world</title>
 
-        // if preload isn't supported, get an asynchronous load by using a non-matching media attribute
-        // then change that media back to its intended value on load
-        rp.bindMediaToggle = function (link) {
-            // remember existing media attr for ultimate state, or default to 'all'
-            var finalMedia = link.media || 'all'
+  
+  <meta name="author" content="codeMario">
+  
 
-            function enableStylesheet() {
-                link.media = finalMedia
-            }
+  
 
-            // bind load handlers to enable media
-            if (link.addEventListener) {
-                link.addEventListener('load', enableStylesheet)
-            } else if (link.attachEvent) {
-                link.attachEvent('onload', enableStylesheet)
-            }
+  
 
-            // Set rel and non-applicable media type to start an async request
-            // note: timeout allows this to happen async to let rendering continue in IE
-            setTimeout(function () {
-                link.rel = 'stylesheet'
-                link.media = 'only x'
-            })
-            // also enable media after 3 seconds,
-            // which will catch very old browsers (android 2.x, old firefox) that don't support onload on link
-            setTimeout(enableStylesheet, 3000)
-        }
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
 
-        // loop through link elements in DOM
-        rp.poly = function () {
-            // double check this to prevent external calls from running
-            if (rp.support()) {
-                return
-            }
-            var links = w.document.getElementsByTagName('link')
-            for (var i = 0; i < links.length; i++) {
-                var link = links[i]
-                // qualify links to those with rel=preload and as=style attrs
-                if (
-                    link.rel === 'preload' &&
-                    link.getAttribute('as') === 'style' &&
-                    !link.getAttribute('data-loadcss')
-                ) {
-                    // prevent rerunning on link
-                    link.setAttribute('data-loadcss', true)
-                    // bind listeners to toggle media back
-                    rp.bindMediaToggle(link)
-                }
-            }
-        }
+  
 
-        // if unsupported, run the polyfill
-        if (!rp.support()) {
-            // run once at least
-            rp.poly()
+  <meta property="og:site_name" content="codeMario"/>
 
-            // rerun poly on an interval until onload
-            var run = w.setInterval(rp.poly, 500)
-            if (w.addEventListener) {
-                w.addEventListener('load', function () {
-                    rp.poly()
-                    w.clearInterval(run)
-                })
-            } else if (w.attachEvent) {
-                w.attachEvent('onload', function () {
-                    rp.poly()
-                    w.clearInterval(run)
-                })
-            }
-        }
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
 
-        // commonjs
-        if (typeof exports !== 'undefined') {
-            exports.loadCSS = loadCSS
-        } else {
-            w.loadCSS = loadCSS
-        }
-    })(typeof global !== 'undefined' ? global : this)
-</script>
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="codeMario" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 6.0.0"></head>
 
-    <style type="text/css">
-    @font-face {
-        font-family: 'Oswald-Regular';
-        src: url("/font/Oswald-Regular.ttf");
-    }
 
-    body {
-        margin: 0;
-    }
+<body>
+<div class="blog">
+  <div class="content">
 
-    header,
-    footer,
-    .back-top,
-    .sidebar,
-    .container,
-    .site-intro-meta,
-    .toc-wrapper {
-        display: none;
-    }
-
-    .site-intro {
-        position: relative;
-        z-index: 3;
-        width: 100%;
-        /* height: 50vh; */
-        overflow: hidden;
-    }
-
-    .site-intro-placeholder {
-        position: absolute;
-        z-index: -2;
-        top: 0;
-        left: 0;
-        width: calc(100% + 300px);
-        height: 100%;
-        background: repeating-linear-gradient(-45deg, #444 0, #444 80px, #333 80px, #333 160px);
-        background-position: center center;
-        transform: translate3d(-226px, 0, 0);
-        animation: gradient-move 2.5s ease-out 0s infinite;
-    }
-
-    @keyframes gradient-move {
-        0% {
-            transform: translate3d(-226px, 0, 0);
-        }
-        100% {
-            transform: translate3d(0, 0, 0);
-        }
-    }
-</style>
-
-    <link rel="preload" href="/css/style.css?v=20211217" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="/css/dark.css?v=20211217" as="style">
-    <link rel="stylesheet" href="/css/dark.css">
-    <link rel="stylesheet" href="/css/mobile.css?v=20211217" media="(max-width: 960px)">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js" as="script">
-    <link rel="preload" href="/scripts/main.js?v=20211217" as="script">
-    <link rel="preload" href="/scripts/dark.js?v=20211217" as="script">
-    <link rel="preload" href="/font/Oswald-Regular.ttf" as="font" crossorigin>
-    <link rel="preload" href="https://at.alicdn.com/t/font_327081_1dta1rlogw17zaor.woff" as="font" crossorigin>
-    <!-- algolia -->
-    
-    <!-- 百度统计  -->
-    
-    <!-- 谷歌统计  -->
-    
-<meta name="generator" content="Hexo 6.0.0"><link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-</head>
-
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
-    <script type="text/javascript">
-        if (typeof window.$ == undefined) {
-            console.warn('jquery load from jsdelivr failed, will load local script')
-            document.write('<script src="/lib/jquery.min.js" />')
-        }
-    </script>
-    
-        <!-- header -->
-        <header class="header header-mobile">
-    <!-- top read progress line -->
-    <div class="header-element">
-        <div class="read-progress"></div>
-    </div>
-    <!-- sidebar menu button -->
-    <div class="header-element">
-        
-            <div class="header-sidebar-menu">
-        
-            
-                <div style="padding-left: 1px;">&#xe775;</div>
-            
-        </div>
-    </div>
-    <!-- header actions -->
-    <div class="header-actions">
-        <!-- theme mode switch button -->
-        <span class="header-theme-btn header-element">
-            <i class="fas fa-adjust"></i>
-        </span>
-        <!-- back to home page text -->
-        <span class="home-link header-element">
-            <a href=/>codeMario's base.</a>
-        </span>
-    </div>
-    <!-- toggle banner for post layout -->
-    
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">codeMario</a>
+    </h1>
+    <p class="site-description">hello world</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/categories">Categories</a></li>
+      
+        <li><a href="/tags">Tags</a></li>
+      
+        <li><a href="/about">About</a></li>
+      
+    </ul>
+  </nav>
 </header>
 
-        <!-- fixed footer -->
-        <footer class="footer-fixed">
-    <!-- back to top button -->
-    <div class="footer-fixed-element">
-        
-            <div class="back-top back-top-hidden">
-        
-        
-            <div>&#xe639;</div>
-        
+    <main class="site-main posts-loop">
+    
+
+<article>
+
+  <h2 class="article-title ">Archives</h2>
+
+  <div class="archive">
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2022-05-12T07:49:38.000Z">
+            <a href="/2022/05/12/pcap文件格式详解/">2022-05-12</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2022/05/12/pcap文件格式详解/"><span>Pcap文件详解</span></a></h3>
+          
         </div>
-    </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2022-01-30T18:11:51.000Z">
+            <a href="/2022/01/31/Linux操作系统密码破解/">2022-01-31</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2022/01/31/Linux操作系统密码破解/"><span>Linux操作系统密码破解</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2022-01-30T18:10:05.000Z">
+            <a href="/2022/01/31/使用kali去破解windows主机密码/">2022-01-31</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2022/01/31/使用kali去破解windows主机密码/"><span>使用kali去破解windows主机密码</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2022-01-30T18:09:09.000Z">
+            <a href="/2022/01/31/Web前端-JavaScriptDay10-函数/">2022-01-31</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2022/01/31/Web前端-JavaScriptDay10-函数/"><span>Web前端_JavaScriptDay10_函数</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2022-01-30T17:55:17.000Z">
+            <a href="/2022/01/31/Web前端-JavaScript的Day2-基本数据类型、数组、循环及条件表达式/">2022-01-31</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2022/01/31/Web前端-JavaScript的Day2-基本数据类型、数组、循环及条件表达式/"><span>Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式</span></a></h3>
+          
+        </div>
+      </div>
+    
+      <div class="post archive">
+        <div class="archive-post">
+          <time datetime="2022-01-30T17:24:26.000Z">
+            <a href="/2022/01/31/Web前端-JavaScript的Day1-面向对象的初步理解/">2022-01-31</a>
+          </time>
+          
+            <h3 class="archive-title"><a href="/2022/01/31/Web前端-JavaScript的Day1-面向对象的初步理解/"><span>Web前端_JavaScript的Day1_面向对象的初步理解</span></a></h3>
+          
+        </div>
+      </div>
+    
+    <nav class="pagination">
+  
+  
+</nav>
+  </div>
+
+</article>
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2022 codeMario
+    
+  </p>
 </footer>
-
-        <!-- wrapper -->
-        <div class="wrapper">
-            <div class="site-intro" style="
-
-
-
-
-
-
-
-">
     
-    <!-- 主页  -->
-            
-    <div class="site-intro-placeholder"></div>
-    <div class="site-intro-img" style="background-image: url(/)"></div>
-    <div class="site-intro-meta">
-        <!-- 标题  -->
-        <h1 class="intro-title">
-            <!-- 主页  -->
-            
-        </h1>
-        <!-- 副标题 -->
-        <p class="intro-subtitle">
-            <!-- 主页副标题  -->
-            
-        </p>
-        <!-- 文章页 meta -->
-        
-    </div>
+    
+  </div>
 </div>
-
-            <script>
-  // get user agent
-  function getBrowserVersions() {
-    var u = window.navigator.userAgent
-    return {
-      userAgent: u,
-      trident: u.indexOf('Trident') > -1, //IE内核
-      presto: u.indexOf('Presto') > -1, //opera内核
-      webKit: u.indexOf('AppleWebKit') > -1, //苹果、谷歌内核
-      gecko: u.indexOf('Gecko') > -1 && u.indexOf('KHTML') == -1, //火狐内核
-      mobile: !!u.match(/AppleWebKit.*Mobile.*/), //是否为移动终端
-      ios: !!u.match(/\(i[^;]+;( U;)? CPU.+Mac OS X/), //ios终端
-      android: u.indexOf('Android') > -1 || u.indexOf('Linux') > -1, //android终端或者uc浏览器
-      iPhone: u.indexOf('iPhone') > -1 || u.indexOf('Mac') > -1, //是否为iPhone或者安卓QQ浏览器
-      iPad: u.indexOf('iPad') > -1, //是否为iPad
-      webApp: u.indexOf('Safari') == -1, //是否为web应用程序，没有头部与底部
-      weixin: u.indexOf('MicroMessenger') == -1, //是否为微信浏览器
-      uc: u.indexOf('UCBrowser') > -1, //是否为android下的UC浏览器
-    }
-  }
-  var browser = {
-    versions: getBrowserVersions(),
-  }
-  console.log('userAgent: ' + browser.versions.userAgent)
-
-  // callback
-  function fontLoaded() {
-    console.log('font loaded')
-    if (document.getElementsByClassName('site-intro-meta')) {
-      document
-        .getElementsByClassName('intro-title')[0]
-        .classList.add('intro-fade-in')
-      document
-        .getElementsByClassName('intro-subtitle')[0]
-        .classList.add('intro-fade-in')
-      var postIntros = document.getElementsByClassName('post-intros')[0]
-      if (postIntros) {
-        postIntros.classList.add('post-fade-in')
-      }
-    }
-  }
-
-  // UC不支持跨域，所以直接显示
-  function asyncCb() {
-    if (browser.versions.uc) {
-      console.log('UCBrowser')
-      fontLoaded()
-    } else {
-      WebFont.load({
-        custom: {
-          families: ['Oswald-Regular'],
-        },
-        loading: function () {
-          // 所有字体开始加载
-          // console.log('font loading');
-        },
-        active: function () {
-          // 所有字体已渲染
-          fontLoaded()
-        },
-        inactive: function () {
-          // 字体预加载失败，无效字体或浏览器不支持加载
-          console.log('inactive: timeout')
-          fontLoaded()
-        },
-        timeout: 5000, // Set the timeout to two seconds
-      })
-    }
-  }
-
-  function asyncErr() {
-    console.warn('script load from CDN failed, will load local script')
-  }
-
-  // load webfont-loader async, and add callback function
-  function async(u, cb, err) {
-    var d = document,
-      t = 'script',
-      o = d.createElement(t),
-      s = d.getElementsByTagName(t)[0]
-    o.src = u
-    if (cb) {
-      o.addEventListener(
-        'load',
-        function (e) {
-          cb(null, e)
-        },
-        false
-      )
-    }
-    if (err) {
-      o.addEventListener(
-        'error',
-        function (e) {
-          err(null, e)
-        },
-        false
-      )
-    }
-    s.parentNode.insertBefore(o, s)
-  }
-
-  var asyncLoadWithFallBack = function (arr, success, reject) {
-    var currReject = function () {
-      reject()
-      arr.shift()
-      if (arr.length) async(arr[0], success, currReject)
-    }
-
-    async(arr[0], success, currReject)
-  }
-
-  asyncLoadWithFallBack(
-    [
-      'https://cdn.jsdelivr.net/npm/webfontloader@1.6.28/webfontloader.min.js',
-      'https://cdn.bootcss.com/webfont/1.6.28/webfontloader.js',
-      "/lib/webfontloader.min.js",
-    ],
-    asyncCb,
-    asyncErr
-  )
-</script>
-
-            <img class="loading" src="/assets/loading.svg" style="display: block; margin: 6rem auto 0 auto; width: 6rem; height: 6rem;" />
-            <div class="container container-unloaded">
-                <main class="main index-page">
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/05/12/pcap%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3/">
-                
-                <span class="abstract-title-text">Pcap文件详解</span>
-            </a>
-            <div class="abstract-content">
-                Pcap文件详解一、简介​    pcap文件是一种常用的数据报存储格式，里面的数据按照特定的规格存储和解析。
-​    一般来说使用普通的笔记本打开的pcap文件显示的是乱码，所以我们需要使用支持16进制格式的工具去查看该文件，这里使用https://hexed.it/这个在线网站去查看。
-二、文件格式
-​    pcag文件格式主要是由文件头-数据包头1-数据包1-数据包头2-数据包2这类格式组成。其中文件头只有一个，数据包头和数据包可以有多个，如下图所示。
-
-​    每个pcap文件只有一个文件头，里面包含7个字段，总共占24(B)字节。
-1.Pcap Header
-
-
-head...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/05/12">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/05/12</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="Pcap">Pcap</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/01/31/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81%E7%A0%B4%E8%A7%A3/">
-                
-                <span class="abstract-title-text">Linux操作系统密码破解</span>
-            </a>
-            <div class="abstract-content">
-                注：该文章中使用到的方法只用于学习交流，切勿用于非法途径！！！1.下载owasp
-2.将owasp添加到VMware中
-3.启动owasp4.使用ifconfig查看自己的owasp当前的ip地址，在kali中打开浏览器试的去访问一下该ip是否可以正常使用5.可以正常使用
-6.在kali中使用自带的medusa工具去破解owasp的密码注意：在使用medusa之前需要先去生成一个密码字典，来方便我们对其进行破解，密码字典的生成可以使用Crunch工具或John工具。
-6.1 输入以下指令开始破解11 medusa -h [目标ip地址] -u [用户名] -P [密码字典] -M [目标...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/03/26">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/01/31</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="kali">kali</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/01/31/%E4%BD%BF%E7%94%A8kali%E5%8E%BB%E7%A0%B4%E8%A7%A3windows%E4%B8%BB%E6%9C%BA%E5%AF%86%E7%A0%81/">
-                
-                <span class="abstract-title-text">使用kali去破解windows主机密码</span>
-            </a>
-            <div class="abstract-content">
-                通常windows电脑中都设有开机密码，而其系统通常都是默认关闭3389端口的，并且设置了防火墙，以防黑客有机可乘去控制电脑。如果我们需要去破解对方windows的密码，就需要进行以下操作，在这里我们在VMware中使用win7和kali模拟过程。
-注：该文章中使用到的方法只用于学习交流，切勿用于非法途径！！！1. 开启win7的3389端口（远程桌面端口）3389端口是Windows的远程桌面的服务端口，可以通过这个端口，用”远程桌面”等连接工具来连接到远程的服务器，在连接成功后，输入系统管理员的用户名和密码后，就可以操作远程的电脑，因此远程服务器一般都将这个端口修改数值或者关闭。
-1...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/03/26">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/01/31</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="kali">kali</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScriptDay10-%E5%87%BD%E6%95%B0/">
-                
-                <span class="abstract-title-text">Web前端_JavaScriptDay10_函数</span>
-            </a>
-            <div class="abstract-content">
-                前言  无论是什么程序设计语言，函数都是重要的一部分内容，在实际开发过程中有很多语法的表达和功能的实现都来源于函数。不过与其它语言不同的是，JavaScript是通过函数来实现面向对象的特性并非通过专门的面向对象语法去实现的，因为JavaScript没有属于自己的专门的面向对象语法，所以函数在JavaScript中更是重中之重。
-一、函数的介绍1.什么是函数？  函数是执行特定任务的代码块，之后通过调用函数实现特定任务功能的实现。
-2.函数的组成部分
-关键字function。
-函数名称。
-函数所需要的参数，参数可以是0个，也可以是多个，参数之间要用逗号分隔。
-函数执行的代码块，即函数体。...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/01/31">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/01/31</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="JavaScript">JavaScript</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F/">
-                
-                <span class="abstract-title-text">Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式</span>
-            </a>
-            <div class="abstract-content">
-                前言这部分内容主要介绍了JavaScript中基本数据类型、数组的基础知识、循环的常规应用以及表达式。
-变量1.什么是变量？变量是用来存储数据的，是存放具体数值的容器。
-2.变量的命名规范变量名可以由字母、数字、下划线及美元符号组成，但是不能以数字开头。
-3.变量的使用
-先声明变量后初始化变量。
-可以声明变量同时并初始化变量。
-
-注意：变量名是区分大小写的。
-操作符1.什么是变量？变量是用来存储数据的，是存放具体数值的容器。
-2.基本的算术运算符变量是用来存储数据的，是存放具体数值的容器。
-
-
-
-操作符
-相关操作
-代码示例
-
-
-
-+
-加法操作
-1 + 2
-
-
--
-减法操作
-2 - 1
-
-...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/01/31">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/01/31</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="JavaScript">JavaScript</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-        
-        
-        
-        
-            
-        
-        <article class="index-post">
-            <a class="abstract-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day1-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9D%E6%AD%A5%E7%90%86%E8%A7%A3/">
-                
-                <span class="abstract-title-text">Web前端_JavaScript的Day1_面向对象的初步理解</span>
-            </a>
-            <div class="abstract-content">
-                前言JavaScript是一门面向对象的解释型脚本语言，通过利用面向对象的这种特性，实现了代码重用，并构建起了可伸缩的代码框架。作为JavaScript的初学者，因为面向对象是JavaScript的核心部分，所以在开始就略微的去学习了JavaScript的面向对象的基础概念部分，能够对于JavaScript的面向对象积累一些初始概念，并将自己对这些的感悟分享出来与大家交流。 作为初学者，可能有些地方理解不够正确，希望大家能提出自己的见解，欢迎批评指正。
-面向对象程序设计最常用到的概念面向对象程序设计最常用到的概念如下：
-
-对象、方法、属性；
-类；
-封装；
-聚合;
-重用与继承；
-多态。
-
-...
-            </div>
-            <!-- read more -->
-            
-            <div class="abstract-post-meta">
-                <!-- date -->
-                <div class="abstract-date" title="Last updated: 2022/01/31">
-                    <span class="abstract-calander iconfont-archer">&#xe676;</span><span class="abstract-time">2022/01/31</span>
-                </div>
-                <!-- tags -->
-                
-                    <div class= abstract-tags >
-    
-    
-        <a class="post-tag" href="javascript:void(0);" data-tags="JavaScript">JavaScript</a>
-    
-</div>
-
-                
-            </div>
-        </article>
-        <div class="index-post-divider"></div>
-    
-    <!-- paginator  -->
-    
-</main>
-
-                <!-- profile -->
-                
-            </div>
-            <footer class="footer footer-unloaded">
-    <!-- social  -->
-    
-        <div class="social">
-            
-    
-        
-            
-                <a href="mailto:J385251693@163.com" class="iconfont-archer email" title=email ></a>
-            
-        
-    
-        
-            
-                <a href="https://github.com/codemariosec" class="iconfont-archer github" target="_blank" title=github></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="https://www.zhihu.com/people/ignorant-19-73" class="iconfont-archer zhihu" target="_blank" title=zhihu></a>
-            
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-    
-        
-            
-                <a href="/atom.xml" class="iconfont-archer rss" target="_blank" title=rss></a>
-            
-        
-    
-
-
-        </div>
-    
-    <!-- powered by Hexo  -->
-    <div class="copyright">
-        <span id="hexo-power">Powered by <a href="https://hexo.io/" target="_blank">Hexo</a></span><span class="iconfont-archer power">&#xe635;</span><span id="theme-info">theme <a href="https://github.com/fi3ework/hexo-theme-archer" target="_blank">Archer</a></span>
-    </div>
-    <!-- website approve for Chinese user -->
-    
-    <!-- 不蒜子  -->
-    
-        <div class="busuanzi-container">
-            
-             
-                <span id="busuanzi_container_site_pv">PV: <span id="busuanzi_value_site_pv"></span> :)</span>
-            
-        </div>
-    	
-</footer>
-
-        </div>
-        <!-- toc -->
-        
-        <!-- sidebar -->
-        <div class="sidebar sidebar-hide">
-    <ul class="sidebar-tabs sidebar-tabs-active-0">
-        <li class="sidebar-tab-archives"><span class="iconfont-archer">&#xe67d;</span><span class="tab-name">Archive</span></li>
-        <li class="sidebar-tab-tags"><span class="iconfont-archer">&#xe61b;</span><span class="tab-name">Tag</span></li>
-        <li class="sidebar-tab-categories"><span class="iconfont-archer">&#xe666;</span><span class="tab-name">Cate</span></li>
-    </ul>
-    <div class="sidebar-content sidebar-content-show-archive">
-        <div class="sidebar-panel-archives">
-    <!-- 在 ejs 中将 archive 按照时间排序 -->
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-    
-    
-    
-    
-    <div class="total-and-search">
-        <div class="total-archive">
-        Total : 6
-        </div>
-        <!-- search  -->
-        
-    </div>
-    
-    <div class="post-archive">
-    
-        
-            
-            
-            <div class="archive-year"> 2022 </div>
-            <ul class="year-list">
-            
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">05/12</span>
-            <a class="archive-post-title" href="/2022/05/12/pcap%E6%96%87%E4%BB%B6%E6%A0%BC%E5%BC%8F%E8%AF%A6%E8%A7%A3/">Pcap文件详解</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/31</span>
-            <a class="archive-post-title" href="/2022/01/31/Linux%E6%93%8D%E4%BD%9C%E7%B3%BB%E7%BB%9F%E5%AF%86%E7%A0%81%E7%A0%B4%E8%A7%A3/">Linux操作系统密码破解</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/31</span>
-            <a class="archive-post-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScriptDay10-%E5%87%BD%E6%95%B0/">Web前端_JavaScriptDay10_函数</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/31</span>
-            <a class="archive-post-title" href="/2022/01/31/%E4%BD%BF%E7%94%A8kali%E5%8E%BB%E7%A0%B4%E8%A7%A3windows%E4%B8%BB%E6%9C%BA%E5%AF%86%E7%A0%81/">使用kali去破解windows主机密码</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/31</span>
-            <a class="archive-post-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day1-%E9%9D%A2%E5%90%91%E5%AF%B9%E8%B1%A1%E7%9A%84%E5%88%9D%E6%AD%A5%E7%90%86%E8%A7%A3/">Web前端_JavaScript的Day1_面向对象的初步理解</a>
-        </li>
-    
-        
-        <li class="archive-post-item">
-            <span class="archive-post-date">01/31</span>
-            <a class="archive-post-title" href="/2022/01/31/Web%E5%89%8D%E7%AB%AF-JavaScript%E7%9A%84Day2-%E5%9F%BA%E6%9C%AC%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B%E3%80%81%E6%95%B0%E7%BB%84%E3%80%81%E5%BE%AA%E7%8E%AF%E5%8F%8A%E6%9D%A1%E4%BB%B6%E8%A1%A8%E8%BE%BE%E5%BC%8F/">Web前端_JavaScript的Day2_基本数据类型、数组、循环及条件表达式</a>
-        </li>
-    
-    </div>
-</div>
-
-        <div class="sidebar-panel-tags">
-    <div class="sidebar-tags-name">
-        
-            <span class="sidebar-tag-name" data-tags="JavaScript">
-                <span class="iconfont-archer">&#xe606;</span>
-                JavaScript
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="kali">
-                <span class="iconfont-archer">&#xe606;</span>
-                kali
-            </span>
-        
-            <span class="sidebar-tag-name" data-tags="Pcap">
-                <span class="iconfont-archer">&#xe606;</span>
-                Pcap
-            </span>
-        
-    </div>
-    <div class="iconfont-archer sidebar-tags-empty">&#xe678;</div>
-    <div class="tag-load-fail" style="display: none; color: #ccc; font-size: 0.6rem;">
-        缺失模块，请参考主题文档进行安装配置：https://github.com/fi3ework/hexo-theme-archer#%E5%AE%89%E8%A3%85%E4%B8%BB%E9%A2%98
-    </div> 
-    <div class="sidebar-tags-list"></div>
-</div>
-
-        <div class="sidebar-panel-categories">
-    <div class="sidebar-categories-name">
-    
-        <span class="sidebar-category-name" data-categories="前端">
-            <span class="iconfont-archer">&#xe60a;</span>
-            前端
-        </span>
-    
-        <span class="sidebar-category-name" data-categories="信息安全">
-            <span class="iconfont-archer">&#xe60a;</span>
-            信息安全
-        </span>
-    
-        <span class="sidebar-category-name" data-categories="网络">
-            <span class="iconfont-archer">&#xe60a;</span>
-            网络
-        </span>
-    
-    </div>
-    <div class="iconfont-archer sidebar-categories-empty">&#xe678;</div>
-    <div class="sidebar-categories-list"></div>
-</div>
-
-    </div>
-</div>
-
-        <!-- site-meta -->
-        <script>
-    var siteMetaRoot = "/"
-    if (siteMetaRoot === "undefined") {
-        siteMetaRoot = '/'
-    }
-    var siteMeta = {
-        url: "https://codemariosec.github.io",
-        root: siteMetaRoot,
-        author: "codeMario"
-    }
-</script>
-
-        <!-- import experimental options here -->
-        <!-- Custom Font -->
-
-
-        <!-- main func -->
-        <script src="/scripts/main.js?v=20211217"></script>
-        <!-- dark mode -->
-        <script src="/scripts/dark.js?v=20211217"></script>
-        <!-- fancybox -->
-        <script src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" defer></script>
-        <!-- algolia -->
-        
-        <!-- busuanzi -->
-        
-            <script src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" async></script>
-        
-        <!-- CNZZ -->
-        
-        <!-- async load share.js -->
-        
-        <!-- mermaid -->
-        
-    </body>
+</body>
 </html>
