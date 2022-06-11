@@ -28,7 +28,119 @@
   <link href="/favicon.ico" rel="icon">
   <link rel="alternate" href="/atom.xml" title="codeMario" type="application/atom+xml">
   <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
-<meta name="generator" content="Hexo 6.0.0"></head>
+<meta name="generator" content="Hexo 6.0.0"><style>mjx-container[jax="SVG"] {
+  direction: ltr;
+}
+
+mjx-container[jax="SVG"] > svg {
+  overflow: visible;
+}
+
+mjx-container[jax="SVG"][display="true"] {
+  display: block;
+  text-align: center;
+  margin: 1em 0;
+}
+
+mjx-container[jax="SVG"][justify="left"] {
+  text-align: left;
+}
+
+mjx-container[jax="SVG"][justify="right"] {
+  text-align: right;
+}
+
+g[data-mml-node="merror"] > g {
+  fill: red;
+  stroke: red;
+}
+
+g[data-mml-node="merror"] > rect[data-background] {
+  fill: yellow;
+  stroke: none;
+}
+
+g[data-mml-node="mtable"] > line[data-line] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > rect[data-frame] {
+  stroke-width: 70px;
+  fill: none;
+}
+
+g[data-mml-node="mtable"] > .mjx-dashed {
+  stroke-dasharray: 140;
+}
+
+g[data-mml-node="mtable"] > .mjx-dotted {
+  stroke-linecap: round;
+  stroke-dasharray: 0,140;
+}
+
+g[data-mml-node="mtable"] > svg {
+  overflow: visible;
+}
+
+[jax="SVG"] mjx-tool {
+  display: inline-block;
+  position: relative;
+  width: 0;
+  height: 0;
+}
+
+[jax="SVG"] mjx-tool > mjx-tip {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+mjx-tool > mjx-tip {
+  display: inline-block;
+  padding: .2em;
+  border: 1px solid #888;
+  font-size: 70%;
+  background-color: #F8F8F8;
+  color: black;
+  box-shadow: 2px 2px 5px #AAAAAA;
+}
+
+g[data-mml-node="maction"][data-toggle] {
+  cursor: pointer;
+}
+
+mjx-status {
+  display: block;
+  position: fixed;
+  left: 1em;
+  bottom: 1em;
+  min-width: 25%;
+  padding: .2em .4em;
+  border: 1px solid #888;
+  font-size: 90%;
+  background-color: #F8F8F8;
+  color: black;
+}
+
+foreignObject[data-mjx-xml] {
+  font-family: initial;
+  line-height: normal;
+  overflow: visible;
+}
+
+.MathJax path {
+  stroke-width: 3;
+}
+
+mjx-container[display="true"] {
+  overflow: auto hidden;
+}
+
+mjx-container[display="true"] + br {
+  display: none;
+}
+</style></head>
 
 
 <body>
@@ -175,7 +287,7 @@
 <li>集合中的元素是数,整数、自然数、正数、有理数、无理数</li>
 <li>集合中的元素是坐标系中的点 ，{(x,y)|x+y&lt; 3}、{(x,y)| $x^{2}$  +$y^2$&#x3D;3}、{(x,y)|$x^2$+$y^2$≤ 3}</li>
 </ul>
-<h1 id="六、集合之间的包含关系"><a href="#六、集合之间的包含关系" class="headerlink" title="六、集合之间的包含关系"></a>六、集合之间的包含关系</h1><p>两个集合A、B,若$\forall$x∈ A,都有x∈B,则称A是B的子集，记为A$\subset$B<br>A&#x3D;{1,2,3,4,5}        B&#x3D;{1,2,3,4,5,6}<br>A&#x3D;{1,2,3,4,5}        B&#x3D; {1,2,3,4,5}<br>Ac B，若$\exists$x∈B且x≠A,则A是B的真子集,记为A$\subset$B<br>A&#x3D;{1,2,3,4,5}        B&#x3D;{1,2,3,4,5,6}<br>$$<br>x^2 + y^2 &#x3D; z<br>$$<br>$$</p>
+<h1 id="六、集合之间的包含关系"><a href="#六、集合之间的包含关系" class="headerlink" title="六、集合之间的包含关系"></a>六、集合之间的包含关系</h1><p>两个集合A、B,若$\forall$x∈ A,都有x∈B,则称A是B的子集，记为A$\subset$B<br>A&#x3D;{1,2,3,4,5}        B&#x3D;{1,2,3,4,5,6}<br>A&#x3D;{1,2,3,4,5}        B&#x3D; {1,2,3,4,5}<br>Ac B，若$\exists$x∈B且x≠A,则A是B的真子集,记为A$\subset$B<br>A&#x3D;{1,2,3,4,5}        B&#x3D;{1,2,3,4,5,6}<br>$$<br>x^2 + y^2 &#x3D; z<br>$$</p>
 
       
     </div>
@@ -586,5 +698,21 @@
     
   </div>
 </div>
+<script type="text/x-mathjax-config">
+    MathJax.Hub.Config({
+        tex2jax: {
+            inlineMath: [ ["$","$"], ["\\(","\\)"] ],
+            skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code'],
+            processEscapes: true
+        }
+    });
+    MathJax.Hub.Queue(function() {
+        var all = MathJax.Hub.getAllJax();
+        for (var i = 0; i < all.length; ++i)
+            all[i].SourceElement().parentNode.className += ' has-jax';
+    });
+</script>
+<script src="//cdn.bootcss.com/mathjax/2.7.3/MathJax.js?config=TeX-MML-AM_CHTML"></script>
+
 </body>
 </html>
