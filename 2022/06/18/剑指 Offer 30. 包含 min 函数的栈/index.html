@@ -10,9 +10,7 @@
   
 
   
-  <meta name="description" content="定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的 min 函数在该栈中，调用 min、push 及 pop 的时间复杂度都是 O(1)。
-
-示例12345678MinStack minStack = new MinStack();minStack.push(-2);minStack.pu">
+  <meta name="description" content="定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的 min 函数在该栈中，调用 min、push 及 pop 的时间复杂度都是 O(1)。">
   
 
   
@@ -94,6 +92,7 @@
         <blockquote>
 <p>定义栈的数据结构，请在该类型中实现一个能够得到栈的最小元素的 min 函数在该栈中，调用 min、push 及 pop 的时间复杂度都是 O(1)。</p>
 </blockquote>
+<span id="more"></span>
 <h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">MinStack minStack = new MinStack();</span><br><span class="line">minStack.push(-2);</span><br><span class="line">minStack.push(0);</span><br><span class="line">minStack.push(-3);</span><br><span class="line">minStack.min();   --&gt; 返回 -3.</span><br><span class="line">minStack.pop();</span><br><span class="line">minStack.top();      --&gt; 返回 0.</span><br><span class="line">minStack.min();   --&gt; 返回 -2.</span><br></pre></td></tr></table></figure>
 <h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>​    实现能够得到栈的最小元素min函数，需要遍历栈中所有元素，这一过程复杂度为<em>O</em>(<em>N</em>)，题目要求min函数的复杂度是<em>O</em>(1)，我们可以通过分别定义两栈<code>stk</code>和<code>stk_min</code>来实现，其中<code>stk</code>用来存入<code>push</code>进来的栈元素，<code>stk_min</code>用来存储<code>stk</code>中最小值，<code>stk</code>中的最小元素始终对应着<code>stk_min</code>中的栈顶元素，min函数只需返回<code>stk_min</code>中的栈顶元素即可。</p>
 <p>设计该数据结构时我们需要注意以下几点：</p>
