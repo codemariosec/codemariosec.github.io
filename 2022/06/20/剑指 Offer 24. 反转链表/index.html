@@ -1,0 +1,202 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>剑指 Offer 24.反转链表 | codeMario | 逆风赶路，不负众望</title>
+
+  
+  <meta name="author" content="codeMario">
+  
+
+  
+  <meta name="description" content="定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。">
+  
+
+  
+  
+  <meta name="keywords" content="LeetCode,linked list">
+  
+
+  <meta id="viewport" name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, minimum-scale=1, user-scalable=no, minimal-ui">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+
+  <meta property="og:title" content="剑指 Offer 24.反转链表"/>
+
+  <meta property="og:site_name" content="codeMario"/>
+
+  
+  <meta property="og:image" content="/favicon.ico"/>
+  
+
+  <link href="/favicon.ico" rel="icon">
+  <link rel="alternate" href="/atom.xml" title="codeMario" type="application/atom+xml">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+<meta name="generator" content="Hexo 6.0.0"></head>
+
+
+<body>
+<div class="blog">
+  <div class="content">
+
+    <header>
+  <div class="site-branding">
+    <h1 class="site-title">
+      <a href="/">codeMario</a>
+    </h1>
+    <p class="site-description">逆风赶路，不负众望</p>
+  </div>
+  <nav class="site-navigation">
+    <ul>
+      
+        <li><a href="/">Home</a></li>
+      
+        <li><a href="/archives">Archives</a></li>
+      
+        <li><a href="/categories">Categories</a></li>
+      
+        <li><a href="/tags">Tags</a></li>
+      
+        <li><a href="/about">About</a></li>
+      
+    </ul>
+  </nav>
+</header>
+
+    <main class="site-main posts-loop">
+    <article>
+
+  
+    
+    <h3 class="article-title"><span>剑指 Offer 24.反转链表</span></h3>
+    
+  
+
+  <div class="article-top-meta">
+    <span class="posted-on">
+      <a href="/2022/06/20/剑指 Offer 24. 反转链表/" rel="bookmark">
+        <time class="entry-date published" datetime="2022-06-20T14:26:01.000Z">
+          2022-06-20
+        </time>
+      </a>
+    </span>
+  </div>
+
+
+  
+
+  <div class="article-content">
+    <div class="entry">
+      
+        <blockquote>
+<p>定义一个函数，输入一个链表的头节点，反转该链表并输出反转后链表的头节点。</p>
+</blockquote>
+<span id="more"></span>
+<h3 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: 1-&gt;2-&gt;3-&gt;4-&gt;5-&gt;NULL</span><br><span class="line">输出: 5-&gt;4-&gt;3-&gt;2-&gt;1-&gt;NULL</span><br></pre></td></tr></table></figure>
+<h3 id="题解"><a href="#题解" class="headerlink" title="题解"></a>题解</h3><p>反转链表可以用迭代（双指针）或递归两种方法实现</p>
+<h4 id="方法一：迭代（双指针）"><a href="#方法一：迭代（双指针）" class="headerlink" title="方法一：迭代（双指针）"></a>方法一：迭代（双指针）</h4><p>总体思想是遍历链表，在访问各节点时修改<code>next</code>引用指向。</p>
+<p><strong>时间复杂度：</strong> 遍历链表使用线性大小时间为<em>O</em>(<em>N</em>)。</p>
+<p><strong>空间复杂度：</strong> 变量 <code>pre</code> 和 <code>cur</code> 使用常数大小额外空间为<em>O</em>(1)。</p>
+<ol>
+<li>分别初始化cur、pre，分别指向头结点和null。</li>
+</ol>
+<p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/image-20220620214702035.png" alt="image-20220620214702035"></p>
+<ol>
+<li><p>链表指向是单向的，在改变当前节点指向并指向前序节点<code>pre</code>时，当前节点<code>cur</code>和后续节点之间的指向会断开，为了避免这种情况，我们需要在改变节点指向之前设置<code>tmp</code>值将<code>cur</code>的后续节点保存下来。</p>
+<p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/image-20220620220138711.png" alt="image-20220620220138711"></p>
+</li>
+<li><p>暂存当前节点，并访问下一个节点。</p>
+<p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/image-20220620220423973.png" alt="image-20220620220423973"></p>
+</li>
+<li><p><code>tmp</code>保存<code>cur</code>的后续节点。</p>
+<p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/image-20220620220535284.png" alt="image-20220620220535284"></p>
+</li>
+<li><p><strong>以下操作同上~~</strong>，最终得到以下结果</p>
+<p><img src="https://codemario-picgo.oss-cn-shenzhen.aliyuncs.com/img/image-20220620220739273.png" alt="image-20220620220739273"></p>
+</li>
+</ol>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        ListNode *cur = head, *pre = <span class="literal">nullptr</span>;</span><br><span class="line">        <span class="keyword">while</span>(cur != <span class="literal">nullptr</span>) &#123;</span><br><span class="line">            ListNode* tmp = cur-&gt;next; <span class="comment">// 暂存后继节点 cur.next</span></span><br><span class="line">            cur-&gt;next = pre;           <span class="comment">// 修改 next 引用指向</span></span><br><span class="line">            pre = cur;                 <span class="comment">// pre 暂存 cur</span></span><br><span class="line">            cur = tmp;                 <span class="comment">// cur 访问下一节点</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> pre;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<h4 id="方法二：递归"><a href="#方法二：递归" class="headerlink" title="方法二：递归"></a>方法二：递归</h4><p>​    使用递归的方法去遍历链表，当越过尾节点后终止递归，在回溯时候修改各节点<code>next</code>引用指向。</p>
+<p>需要注意以下几点：</p>
+<ul>
+<li>在<code>recur(cur, pre)</code> 递归函数中，当 <code>cur</code> 为空，则返回尾节点<code>pre</code>（即反转链表的头节点）</li>
+<li>递归后继节点，记录返回值（即反转链表的头节点）为 <code>res</code></li>
+<li>修改当前节点 <code>cur</code>引用指向前驱节点<code>pre</code>；</li>
+<li>返回反转链表的头节点<code>res</code>；</li>
+</ul>
+<p><strong>时间复杂度：</strong> 遍历链表使用线性大小时间为 <em>O</em>(<em>N</em>) 。<br><strong>空间复杂度 ：</strong> 遍历链表的递归深度达到<em>N</em> ，系统使用额外空间大小为<em>O</em>(<em>N</em>) 。</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Solution</span> &#123;</span></span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">reverseList</span><span class="params">(ListNode* head)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">recur</span>(head, <span class="literal">nullptr</span>);           <span class="comment">// 调用递归并返回</span></span><br><span class="line">    &#125;</span><br><span class="line"><span class="keyword">private</span>:</span><br><span class="line">    <span class="function">ListNode* <span class="title">recur</span><span class="params">(ListNode* cur, ListNode* pre)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (cur == <span class="literal">nullptr</span>) <span class="keyword">return</span> pre;        <span class="comment">// 终止条件</span></span><br><span class="line">        ListNode* res = <span class="built_in">recur</span>(cur-&gt;next, cur); <span class="comment">// 递归后继节点</span></span><br><span class="line">        cur-&gt;next = pre;                       <span class="comment">// 修改节点引用指向</span></span><br><span class="line">        <span class="keyword">return</span> res;                            <span class="comment">// 返回反转链表的头节点</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+  </div>
+
+  <div class="article-footer">
+    <div class="article-meta pull-left">
+
+    
+      
+
+    <span class="post-categories">
+      <i class="icon-categories"></i>
+        <a href="/categories/LeetCode/">LeetCode</a>
+    </span>
+    
+
+    
+    
+
+    <span class="post-tags">
+      <i class="icon-tags"></i>
+        <a href="/tags/LeetCode/">LeetCode</a><a href="/tags/linked-list/">linked list</a>
+    </span>
+    
+
+    </div>
+
+    
+  </div>
+</article>
+
+  
+
+	<section id="comment" class="comment">
+		<div id="vcomments"></div>
+	</section>
+	<!-- LeanCloud -->
+	<script src="//cdn.jsdelivr.net/npm/leancloud-storage@3.10.0/dist/av-min.js"></script>
+	<!-- Valine -->
+	<script src="//unpkg.com/valine/dist/Valine.min.js"></script>
+	<script>
+		new Valine({
+			el: '#vcomments',
+			appId: 'WpN2taXdjtJOc4Cu7LRoQ1tO-gzGzoHsz',
+			appKey: 'rWMuao9pGx49QOzohhiRN36e'
+		})
+	</script>
+
+
+
+
+
+
+    </main>
+
+    <footer class="site-footer">
+  <p class="site-info">
+    Proudly powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and
+    Theme by <a href="https://github.com/CodeDaraW/Hacker" target="_blank">Hacker</a>
+    </br>
+    
+    &copy; 2022 codeMario
+    
+  </p>
+</footer>
+    
+    
+  </div>
+</div>
+</body>
+</html>
